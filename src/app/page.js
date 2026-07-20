@@ -97,6 +97,50 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Journey / Mission Section */}
+      <section className="relative rounded-none w-full my-24 overflow-hidden px-10 py-16">
+        <Image
+          src="/aeroplane.png"
+          alt=""
+          fill
+          className="object-cover object-[center_30%] -z-10"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B1B4D]/95 to-[#12296B]/90" />
+
+        <div className="relative max-w-5xl mx-auto text-center mb-16">
+          <span className="inline-block bg-white/10 text-white text-xs font-bold tracking-wider px-4 py-2 rounded-full mb-6">
+            YOUR JOURNEY, OUR MISSION
+          </span>
+
+          <h2 className="text-3xl md:text-4xl font-normal text-white mb-4 leading-tight">
+            Get the <span className="text-[#6FA8FF]">Score</span>. Get the{" "}
+            <span className="text-[#4ADE80]">Letter</span>. Get on the{" "}
+            <span className="text-[#F5B942]">Plane</span>.
+          </h2>
+        </div>
+
+        <div className="relative max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 justify-center">
+          {[
+            { icon: "🎓", title: "Expert Instructors", text: "Learn from experienced, certified teachers." },
+            { icon: "📈", title: "Proven Results", text: "High success rate in international exams." },
+            { icon: "🤝", title: "Personalized Support", text: "Individual guidance for your unique goals." },
+            { icon: "📋", title: "Complete Preparation", text: "From exam prep to admission and beyond." },
+            { icon: "🧳", title: "Future Ready", text: "We prepare you for academic success abroad." },
+          ].map((item, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-xl shrink-0">
+                {item.icon}
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-sm mb-1">{item.title}</h4>
+                <p className="text-white/50 text-xs leading-snug">{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
       {/* Language Cards Section */}
       <section className="max-w-7xl mx-auto px-10 py-24">
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -110,7 +154,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* English */}
-          <div className="bg-white border-t-4 border-[#3674D6] rounded-lg shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
+          <div className="bg-white border-t-4 border-[#3674D6] rounded-sm shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
             <div className="w-28 h-28 mx-auto rounded-full border-2 border-[#3674D6] ring-[12px] ring-[#3674D6]/15 flex items-center justify-center mb-6 overflow-hidden animate-pulse-scale">
               <svg viewBox="0 0 60 40" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
                 <rect width="60" height="40" fill="#B22234" />
@@ -134,7 +178,7 @@ export default function Home() {
           </div>
 
           {/* Turkish */}
-          <div className="bg-white border-t-4 border-[#D63636] rounded-lg shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
+          <div className="bg-white border-t-4 border-[#D63636] rounded-sm shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
             <div className="w-28 h-28 mx-auto rounded-full border-2 border-[#D63636] ring-[12px] ring-[#D63636]/15 flex items-center justify-center mb-6 overflow-hidden animate-pulse-scale">
               <svg viewBox="0 0 60 40" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
                 <rect width="60" height="40" fill="#E30A17" />
@@ -157,7 +201,7 @@ export default function Home() {
           </div>
 
           {/* German */}
-          <div className="bg-white border-t-4 border-[#1B4332] rounded-lg shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
+          <div className="bg-white border-t-4 border-[#1B4332] rounded-sm shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
             <div className="w-28 h-28 mx-auto rounded-full border-2 border-[#1B4332] ring-[12px] ring-[#1B4332]/15 flex items-center justify-center mb-6 overflow-hidden animate-pulse-scale">
               <svg viewBox="0 0 60 40" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
                 <rect width="60" height="13.3" fill="#000" />
@@ -174,6 +218,107 @@ export default function Home() {
               A1-B2
             </span>
           </div>
+        </div>
+      </section>
+
+      {/* Programs Grid Section */}
+      <section className="max-w-7xl mx-auto px-10 py-24">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="text-4xl font-bold text-[#314A8A] mb-4">
+            Elite Dil Evi Education Programs
+          </h2>
+          <p className="text-gray-600 text-lg">
+            Quality solutions for every language learning need — from
+            juniors to adults, general courses to exam preparation.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
+          {[
+            {
+              title: "General English",
+              subtitle: "Courses for Every Level",
+              color: "#3674D6",
+              icon: (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+              ),
+            },
+            {
+              title: "Exam Preparation",
+              subtitle: "TOEFL, IELTS & Goethe",
+              color: "#3674D6",
+              icon: (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              ),
+            },
+            {
+              title: "Professional Language",
+              subtitle: "Business & Career Focused",
+              color: "#3674D6",
+              icon: (
+                <>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 8.25h16.5a1.5 1.5 0 011.5 1.5v9a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5v-9a1.5 1.5 0 011.5-1.5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 8.25V6a1.5 1.5 0 011.5-1.5h4.5A1.5 1.5 0 0115.75 6v2.25M3 12.75h18" />
+                </>
+              ),
+            },
+            {
+              title: "Private Lessons",
+              subtitle: "One-on-One Personalized Classes",
+              color: "#3674D6",
+              icon: (
+                <>
+                  <circle cx="12" cy="12" r="8.25" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="12" cy="12" r="4.25" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="12" cy="12" r="0.75" fill="currentColor" />
+                </>
+              ),
+            },
+            {
+              title: "Junior Programs",
+              subtitle: "Fun & Effective Kids Courses",
+              color: "#3674D6",
+              icon: (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+              ),
+            },
+            {
+              title: "Corporate Training",
+              subtitle: "Custom Programs for Companies",
+              color: "#3674D6",
+              icon: (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18M18.75 3v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+              ),
+            },
+          ].map((prog, i) => (
+            <div key={i} className="rounded-sm overflow-hidden shadow-md hover:shadow-xl transition bg-white">
+              <div className="relative h-36">
+                <Image src="/background.png" alt={prog.title} fill className="object-cover" />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: `linear-gradient(135deg, ${prog.color}E6 35%, ${prog.color}00 75%)` }}
+                />
+                <div
+                  className="absolute -bottom-6 left-6 w-14 h-14 rounded-full flex items-center justify-center shadow-md ring-4 ring-white"
+                  style={{ backgroundColor: prog.color }}
+                >
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    {prog.icon}
+                  </svg>
+                </div>
+              </div>
+              <div className="pt-10 px-6 pb-6">
+                <h3 className="text-xl font-bold text-[#314A8A] mb-1">{prog.title}</h3>
+                <p className="text-gray-500 mb-5">{prog.subtitle}</p>
+                <button
+                  className="text-sm font-semibold px-4 py-2 rounded border hover:bg-gray-50 transition"
+                  style={{ borderColor: prog.color, color: prog.color }}
+                >
+                  See Details →
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -215,107 +360,6 @@ export default function Home() {
             fill
             className="object-cover object-top"
           />
-        </div>
-      </section>
-
-      {/* Programs Grid Section */}
-      <section className="max-w-7xl mx-auto px-10 py-24">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-4xl font-bold text-[#314A8A] mb-4">
-            Elite Dil Evi Education Programs
-          </h2>
-          <p className="text-gray-600 text-lg">
-            Quality solutions for every language learning need — from
-            juniors to adults, general courses to exam preparation.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
-          {[
-            {
-              title: "General English",
-              subtitle: "Courses for Every Level",
-              color: "#3674D6",
-              icon: (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-              ),
-            },
-            {
-              title: "Exam Preparation",
-              subtitle: "TOEFL, IELTS & Goethe",
-              color: "#D63636",
-              icon: (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              ),
-            },
-            {
-              title: "Professional Language",
-              subtitle: "Business & Career Focused",
-              color: "#1B7A5A",
-              icon: (
-                <>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 8.25h16.5a1.5 1.5 0 011.5 1.5v9a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5v-9a1.5 1.5 0 011.5-1.5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 8.25V6a1.5 1.5 0 011.5-1.5h4.5A1.5 1.5 0 0115.75 6v2.25M3 12.75h18" />
-                </>
-              ),
-            },
-            {
-              title: "Private Lessons",
-              subtitle: "One-on-One Personalized Classes",
-              color: "#7C3AED",
-              icon: (
-                <>
-                  <circle cx="12" cy="12" r="8.25" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="12" cy="12" r="4.25" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="12" cy="12" r="0.75" fill="currentColor" />
-                </>
-              ),
-            },
-            {
-              title: "Junior Programs",
-              subtitle: "Fun & Effective Kids Courses",
-              color: "#F59E0B",
-              icon: (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-              ),
-            },
-            {
-              title: "Corporate Training",
-              subtitle: "Custom Programs for Companies",
-              color: "#0E7490",
-              icon: (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18M18.75 3v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-              ),
-            },
-          ].map((prog, i) => (
-            <div key={i} className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition bg-white">
-              <div className="relative h-36">
-                <Image src="/background.png" alt={prog.title} fill className="object-cover" />
-                <div
-                  className="absolute inset-0"
-                  style={{ background: `linear-gradient(135deg, ${prog.color}E6 35%, ${prog.color}00 75%)` }}
-                />
-                <div
-                  className="absolute -bottom-6 left-6 w-14 h-14 rounded-full flex items-center justify-center shadow-md ring-4 ring-white"
-                  style={{ backgroundColor: prog.color }}
-                >
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    {prog.icon}
-                  </svg>
-                </div>
-              </div>
-              <div className="pt-10 px-6 pb-6">
-                <h3 className="text-xl font-bold text-[#314A8A] mb-1">{prog.title}</h3>
-                <p className="text-gray-500 mb-5">{prog.subtitle}</p>
-                <button
-                  className="text-sm font-semibold px-4 py-2 rounded border hover:bg-gray-50 transition"
-                  style={{ borderColor: prog.color, color: prog.color }}
-                >
-                  See Details →
-                </button>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -392,7 +436,7 @@ export default function Home() {
               {
                 title: "Language & Exam Prep",
                 text: "Structured classes toward the specific score your chosen universities require.",
-                color: "#D63636",
+                color: "#3674D6",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                 ),
@@ -400,7 +444,7 @@ export default function Home() {
               {
                 title: "Application Documents",
                 text: "Personal statement, transcripts, recommendation letters — reviewed against each program's checklist.",
-                color: "#1B7A5A",
+                color: "#3674D6",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-19.5 0v6a2.25 2.25 0 002.25 2.25h15a2.25 2.25 0 002.25-2.25v-6m-19.5 0h19.5M4.5 9.75V6a2.25 2.25 0 012.25-2.25h4.5l2.25 2.25h5.25A2.25 2.25 0 0121.75 8.25v1.5" />
                 ),
@@ -408,7 +452,7 @@ export default function Home() {
               {
                 title: "Interview Preparation",
                 text: "Mock interviews for programs that require them, in the language of instruction.",
-                color: "#7C3AED",
+                color: "#3674D6",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                 ),
@@ -416,7 +460,7 @@ export default function Home() {
               {
                 title: "Acceptance",
                 text: "We stay on until the offer letter is in hand — including conditional-offer language conditions.",
-                color: "#F59E0B",
+                color: "#3674D6",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 ),
