@@ -1,10 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "./components/Header";
+import AboutSection from "./components/AboutSection";
+import WelcomePopup from "./components/WelcomePopup";
 
 export default function Home() {
+  const [heroReplayKey, setHeroReplayKey] = useState(0);
+
   return (
     <main>
+      <WelcomePopup onClose={() => setHeroReplayKey((k) => k + 1)} />
       <Header />
 
       {/* Hero Section */}
@@ -21,7 +29,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[#C6C6C6] opacity-10" />
 
         <div className="absolute inset-0 flex items-start pt-16">
-          <div className="max-w-2xl px-10 ml-32 animate-slide-in-right">
+          <div key={heroReplayKey} className="max-w-2xl px-10 ml-32 animate-slide-in-right">
             <p className="text-lg text-[#3674D6] -mt-6 mb-3">
               Master New Languages, Shape Your Future!
             </p>
@@ -98,8 +106,8 @@ export default function Home() {
       </div>
 
       {/* Journey / Mission Section */}
-      <section className="relative rounded-none w-full my-24 overflow-hidden px-10 py-16">
-        <Image
+<section className="relative rounded-none w-full mt-24 mb-8 overflow-hidden px-10 py-16">
+          <Image
           src="/aeroplane.png"
           alt=""
           fill
@@ -142,101 +150,177 @@ export default function Home() {
       </section>
 
       {/* Language Cards Section */}
-      <section className="max-w-7xl mx-auto px-10 py-24">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-4xl font-bold text-[#314A8A] mb-4">
-            Pick Your Language, Start Today
+      <section className="max-w-7xl mx-auto px-10 pt-12 pb-24">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#314A8A] leading-tight">
+            Pick Your Language, <span className="text-[#3674D6] underline decoration-2 underline-offset-4">Start Today</span>
           </h2>
-          <p className="text-gray-600 text-lg">
-            Structured levels for every learner — from beginner to advanced.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* English */}
-          <div className="bg-white border-t-4 border-[#3674D6] rounded-sm shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
-            <div className="w-28 h-28 mx-auto rounded-full border-2 border-[#3674D6] ring-[12px] ring-[#3674D6]/15 flex items-center justify-center mb-6 overflow-hidden animate-pulse-scale">
-              <svg viewBox="0 0 60 40" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-                <rect width="60" height="40" fill="#B22234" />
-                <rect y="3.08" width="60" height="3.08" fill="#fff" />
-                <rect y="9.23" width="60" height="3.08" fill="#fff" />
-                <rect y="15.38" width="60" height="3.08" fill="#fff" />
-                <rect y="21.54" width="60" height="3.08" fill="#fff" />
-                <rect y="27.69" width="60" height="3.08" fill="#fff" />
-                <rect y="33.85" width="60" height="3.08" fill="#fff" />
-                <rect width="24" height="21.54" fill="#3C3B6E" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-[#314A8A] mb-3">English</h3>
-            <p className="text-gray-600 mb-5">
-              General & academic English, built to feed straight into
-              TOEFL, IELTS or Pearson prep.
-            </p>
-            <span className="inline-block text-xs font-semibold text-white bg-[#3674D6] px-4 py-1.5 rounded-full">
-              A1-C2
-            </span>
-          </div>
-
-          {/* Turkish */}
-          <div className="bg-white border-t-4 border-[#D63636] rounded-sm shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
-            <div className="w-28 h-28 mx-auto rounded-full border-2 border-[#D63636] ring-[12px] ring-[#D63636]/15 flex items-center justify-center mb-6 overflow-hidden animate-pulse-scale">
-              <svg viewBox="0 0 60 40" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-                <rect width="60" height="40" fill="#E30A17" />
-                <circle cx="24" cy="20" r="10" fill="#fff" />
-                <circle cx="27.5" cy="20" r="8" fill="#E30A17" />
-                <polygon
-                  fill="#fff"
-                  points="34,20 30.9,21 31.7,17.6 29.2,15.1 32.6,14.9 34,11.7 35.4,14.9 38.8,15.1 36.3,17.6 37.1,21"
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          {[
+            {
+              name: "English",
+              image: "/english.png",
+              color: "#3674D6",
+              popular: true,
+              desc: "General & academic English, built to feed straight into TOEFL, IELTS or Pearson prep.",
+              flag: (
+                <>
+                  <rect width="60" height="40" fill="#B22234" />
+                  <rect y="3.08" width="60" height="3.08" fill="#fff" />
+                  <rect y="9.23" width="60" height="3.08" fill="#fff" />
+                  <rect y="15.38" width="60" height="3.08" fill="#fff" />
+                  <rect y="21.54" width="60" height="3.08" fill="#fff" />
+                  <rect y="27.69" width="60" height="3.08" fill="#fff" />
+                  <rect y="33.85" width="60" height="3.08" fill="#fff" />
+                  <rect width="24" height="21.54" fill="#3C3B6E" />
+                </>
+              ),
+              features: [
+                {
+                  label: "All Levels A1 – C2",
+                  icon: "M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25",
+                },
+                {
+                  label: "Exam Preparation",
+                  icon: "M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z M3 9v6",
+                },
+                {
+                  label: "Speaking Focus",
+                  icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+                },
+              ],
+            },
+            {
+              name: "Turkish",
+              image: "/turkish.png",
+              color: "#D63636",
+              popular: false,
+              desc: "Turkish for living, working and studying in Turkey — everyday fluency, not just textbook grammar.",
+              flag: (
+                <>
+                  <rect width="60" height="40" fill="#E30A17" />
+                  <circle cx="24" cy="20" r="10" fill="#fff" />
+                  <circle cx="27.5" cy="20" r="8" fill="#E30A17" />
+                  <polygon
+                    fill="#fff"
+                    points="34,20 30.9,21 31.7,17.6 29.2,15.1 32.6,14.9 34,11.7 35.4,14.9 38.8,15.1 36.3,17.6 37.1,21"
+                  />
+                </>
+              ),
+              features: [
+                {
+                  label: "Everyday Conversations",
+                  icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+                },
+                {
+                  label: "Work & Study in Turkey",
+                  icon: "M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.653v-6.5A2.25 2.25 0 0018 3.75h-1.5a2.25 2.25 0 00-2.25 2.25v.75m6 6a48.667 48.667 0 00-7.5-.383m-7.5.383a2.18 2.18 0 01-.75-1.653v-6.5A2.25 2.25 0 016 3.75h1.5a2.25 2.25 0 012.25 2.25v.75m6 6a48.667 48.667 0 00-7.5 0",
+                },
+                {
+                  label: "Listening Practice",
+                  icon: "M3 18v-6a9 9 0 0118 0v6M3 18a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3v5zm18 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3v5z",
+                },
+              ],
+            },
+            {
+              name: "Germany",
+              image: "/germany.png",
+              color: "#1B4332",
+              popular: false,
+              desc: "German for admission, work visas, and daily life — with exam-track options for certification.",
+              flag: (
+                <>
+                  <rect width="60" height="13.3" fill="#000" />
+                  <rect y="13.3" width="60" height="13.3" fill="#DD0000" />
+                  <rect y="26.6" width="60" height="13.4" fill="#FFCE00" />
+                </>
+              ),
+              features: [
+                {
+                  label: "Exam Preparation",
+                  icon: "M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z M3 9v6",
+                },
+                {
+                  label: "Study & Abroad",
+                  icon: "M3.75 21h16.5M4.5 3h15M5.25 3v18M18.75 3v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21",
+                },
+                {
+                  label: "Practical German",
+                  icon: "M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z",
+                },
+              ],
+            },
+          ].map((lang) => (
+            <div
+              key={lang.name}
+              className="relative bg-white rounded-md shadow-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="relative h-44">
+                <Image
+                  src={lang.image}
+                  alt={lang.name}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 768px) 380px, 100vw"
                 />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-[#314A8A] mb-3">Turkey</h3>
-            <p className="text-gray-600 mb-5">
-              Turkish for living, working and studying in Turkey —
-              everyday fluency, not just textbook grammar.
-            </p>
-            <span className="inline-block text-xs font-semibold text-white bg-[#D63636] px-4 py-1.5 rounded-full">
-              A1-C2
-            </span>
-          </div>
+              </div>
 
-          {/* German */}
-          <div className="bg-white border-t-4 border-[#1B4332] rounded-sm shadow-2xl p-12 min-h-[420px] text-center hover:shadow-2xl transition">
-            <div className="w-28 h-28 mx-auto rounded-full border-2 border-[#1B4332] ring-[12px] ring-[#1B4332]/15 flex items-center justify-center mb-6 overflow-hidden animate-pulse-scale">
-              <svg viewBox="0 0 60 40" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-                <rect width="60" height="13.3" fill="#000" />
-                <rect y="13.3" width="60" height="13.3" fill="#DD0000" />
-                <rect y="26.6" width="60" height="13.4" fill="#FFCE00" />
-              </svg>
+              <div className="flex justify-center relative z-10 -mt-14">
+                <div
+                  className="w-24 h-24 rounded-full ring-4 ring-white shadow-lg overflow-hidden bg-white animate-pulse-scale"
+                  style={{ boxShadow: `0 0 0 8px ${lang.color}26, 0 10px 20px -5px rgba(0,0,0,0.25)` }}
+                >
+                  <svg viewBox="0 0 60 40" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
+                    {lang.flag}
+                  </svg>
+                </div>
+              </div>
+
+              <div className="px-8 pb-8 pt-4 text-center">
+                <h3 className="text-2xl font-bold text-[#314A8A]">{lang.name}</h3>
+                <span
+                  className="block mx-auto mt-2 mb-4 h-[3px] w-10 rounded-full"
+                  style={{ backgroundColor: lang.color }}
+                />
+                <p className="text-gray-600 text-sm">{lang.desc}</p>
+
+                <div className="grid grid-cols-3 gap-3 my-6">
+                  {lang.features.map((f) => (
+                    <div
+                      key={f.label}
+                      className="flex flex-col items-center gap-1 rounded-md py-2 px-1 bg-[#3674D6]/10"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="#3674D6" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
+                      </svg>
+                      <p className="text-[11px] font-semibold text-[#314A8A] leading-tight">{f.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <button className="w-full text-sm font-bold py-3 rounded border border-[#3674D6] text-[#3674D6] hover:bg-gray-50 transition">
+                  See Details →
+                </button>
+              </div>
             </div>
-            <h3 className="text-2xl font-bold text-[#314A8A] mb-3">Germany</h3>
-            <p className="text-gray-600 mb-5">
-              German for admission, work visas, and daily life — with
-              exam-track options for certification.
-            </p>
-            <span className="inline-block text-xs font-semibold text-white bg-[#1B4332] px-4 py-1.5 rounded-full">
-              A1-B2
-            </span>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* Programs Grid Section */}
-      <section className="max-w-7xl mx-auto px-10 py-24">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-4xl font-bold text-[#314A8A] mb-4">
+      <section className="max-w-7xl mx-auto px-10 pt-8 pb-24">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <h2 className="text-4xl font-bold text-[#314A8A]">
             Elite Dil Evi Education Programs
           </h2>
-          <p className="text-gray-600 text-lg">
-            Quality solutions for every language learning need — from
-            juniors to adults, general courses to exam preparation.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-1 gap-y-10 mt-12">
           {[
             {
-              title: "General English",
+              title: "General Courses",
               subtitle: "Courses for Every Level",
               color: "#3674D6",
               icon: (
@@ -252,14 +336,11 @@ export default function Home() {
               ),
             },
             {
-              title: "Professional Language",
-              subtitle: "Business & Career Focused",
+              title: "Junior Programs",
+              subtitle: "Fun & Effective Kids Courses",
               color: "#3674D6",
               icon: (
-                <>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 8.25h16.5a1.5 1.5 0 011.5 1.5v9a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5v-9a1.5 1.5 0 011.5-1.5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 8.25V6a1.5 1.5 0 011.5-1.5h4.5A1.5 1.5 0 0115.75 6v2.25M3 12.75h18" />
-                </>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
               ),
             },
             {
@@ -275,43 +356,65 @@ export default function Home() {
               ),
             },
             {
-              title: "Junior Programs",
-              subtitle: "Fun & Effective Kids Courses",
+              title: "Online Courses",
+              subtitle: "Courses for Every Level",
               color: "#3674D6",
               icon: (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                <>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 8.25h16.5a1.5 1.5 0 011.5 1.5v9a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5v-9a1.5 1.5 0 011.5-1.5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 8.25V6a1.5 1.5 0 011.5-1.5h4.5A1.5 1.5 0 0115.75 6v2.25M3 12.75h18" />
+                </>
               ),
             },
             {
-              title: "Corporate Training",
-              subtitle: "Custom Programs for Companies",
+              title: "Admission Services",
+              subtitle: "University Applications",
               color: "#3674D6",
               icon: (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18M18.75 3v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
               ),
             },
           ].map((prog, i) => (
-            <div key={i} className="rounded-sm overflow-hidden shadow-md hover:shadow-xl transition bg-white">
-              <div className="relative h-36">
-                <Image src="/background.png" alt={prog.title} fill className="object-cover" />
+            <div   key={i}
+  className="group rounded-sm overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 bg-white min-h-[205px] max-w-[340px] mx-auto w-full hover:-translate-y-2">
+              <div className="relative h-32">
+                <div className="absolute inset-0 overflow-hidden">
+                  <Image   src={
+    prog.title === "General Courses"
+      ? "/generall.jpg"
+      : prog.title === "Online Courses"
+      ? "/online.jpg"
+       : prog.title === "Exam Preparation"
+      ? "/exam.jpg"
+      : prog.title === "Junior Programs"
+      ? "/junior.jpg"
+       : prog.title === "Private Lessons"
+      ? "/private.jpg"
+         : prog.title === "Admission Services"
+      ? "/unii.jpg"
+      : "/background.png"}
+    alt={prog.title}
+    fill
+    className="object-cover transition-transform duration-300 group-hover:scale-110" />
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: `linear-gradient(135deg, ${prog.color}E6 25%, ${prog.color}00 65%)` }}
+                  />
+                </div>
                 <div
-                  className="absolute inset-0"
-                  style={{ background: `linear-gradient(135deg, ${prog.color}E6 35%, ${prog.color}00 75%)` }}
-                />
-                <div
-                  className="absolute -bottom-6 left-6 w-14 h-14 rounded-full flex items-center justify-center shadow-md ring-4 ring-white"
+                  className="absolute -bottom-4 left-4 w-9 h-9 rounded-full flex items-center justify-center shadow-md ring-4 ring-white"
                   style={{ backgroundColor: prog.color }}
                 >
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                     {prog.icon}
                   </svg>
                 </div>
               </div>
-              <div className="pt-10 px-6 pb-6">
-                <h3 className="text-xl font-bold text-[#314A8A] mb-1">{prog.title}</h3>
-                <p className="text-gray-500 mb-5">{prog.subtitle}</p>
+              <div className="pt-5 px-4 pb-4">
+                <h3 className="text-base font-bold text-[#314A8A] mb-0.5">{prog.title}</h3>
+                <p className="text-gray-500 text-xs mb-1.5">{prog.subtitle}</p>
                 <button
-                  className="text-sm font-semibold px-4 py-2 rounded border hover:bg-gray-50 transition"
+                  className="text-xs font-semibold px-4 py-1.5 rounded border hover:bg-gray-50 transition"
                   style={{ borderColor: prog.color, color: prog.color }}
                 >
                   See Details →
@@ -323,104 +426,16 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="max-w-7xl mx-auto px-10 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        <div>
-          <p className="text-[#3674D6] font-semibold mb-3">About Elite Dil Evi</p>
-          <h2 className="text-4xl font-bold text-[#314A8A] mb-6 leading-snug">
-            Your Trusted Partner in Language Learning
-          </h2>
-          <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-            Elite Dil Evi is dedicated to helping students of all ages achieve
-            fluency in German, English, and Turkish. With modern teaching
-            methods, expert instructors, and internationally recognized
-            certification, we prepare our students not just to learn a
-            language — but to use it confidently in real life, in exams, and
-            on the path to studying abroad.
-          </p>
-          <ul className="space-y-3 text-[#314A8A] font-medium">
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#3674D6]" />
-              Courses for Junior & Adult learners
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#3674D6]" />
-              Dedicated Exam Preparation Program
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#3674D6]" />
-              Internationally Standardized Curriculum
-            </li>
-          </ul>
-        </div>
-
-        <div className="relative w-full h-[420px] rounded-2xl overflow-hidden shadow-lg">
-          <Image
-            src="/background.png"
-            alt="Elite Dil Evi Students"
-            fill
-            className="object-cover object-top"
-          />
-        </div>
-      </section>
-
-      {/* Exam Preparation Section */}
-      <section className="max-w-7xl mx-auto px-10 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-lg order-2 md:order-1">
-          <Image
-            src="/background.png"
-            alt="Exam Preparation"
-            fill
-            className="object-cover object-center"
-          />
-        </div>
-
-        <div className="order-1 md:order-2">
-          <p className="text-[#3674D6] font-semibold mb-3">Exam Preparation</p>
-          <h2 className="text-4xl font-bold text-[#314A8A] mb-6 leading-snug">
-            Ace TOEFL, IELTS & German Exams
-          </h2>
-          <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-            Our exam preparation program is designed to build the exact
-            skills and confidence you need — with focused practice, mock
-            tests, and expert guidance from instructors who know the exams
-            inside and out.
-          </p>
-
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="bg-[#EAF0FB] rounded-xl px-6 py-4 text-center font-semibold text-[#314A8A]">
-              TOEFL
-            </div>
-            <div className="bg-[#EAF0FB] rounded-xl px-6 py-4 text-center font-semibold text-[#314A8A]">
-              IELTS
-            </div>
-            <div className="bg-[#EAF0FB] rounded-xl px-6 py-4 text-center font-semibold text-[#314A8A]">
-              Goethe
-            </div>
-            <div className="bg-[#EAF0FB] rounded-xl px-6 py-4 text-center font-semibold text-[#314A8A]">
-              Pearson ÖSD
-            </div>
-          </div>
-
-          <Link
-            href="/exams"
-            className="inline-block bg-[#3674D6] text-white font-bold px-8 py-4 rounded hover:bg-[#0E4396] transition"
-          >
-            Explore Exam Prep →
-          </Link>
-        </div>
-      </section>
+      <AboutSection />
 
       {/* Process Steps Section */}
-      <section className="bg-gray-50 py-24">
+      <section className="bg-gray-100 -mt-10 pt-2 pb-24">
         <div className="max-w-6xl mx-auto px-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-[#3674D6] font-semibold mb-3">Our Process</p>
-            <h2 className="text-4xl font-bold text-[#314A8A] mb-4">
+          <div className="text-center max-w-2xl mx-auto mb-6">
+            <p className="text-[#3674D6] font-semibold mb-1">Our Process</p>
+            <h2 className="text-4xl font-bold text-[#314A8A]">
               From Language Level to Acceptance Letter
             </h2>
-            <p className="text-gray-600 text-lg">
-              We handle the parts that usually stall an application — not just the language.
-            </p>
           </div>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-0">
@@ -497,107 +512,171 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats / Trust Bar */}
-      <section className="bg-[#314A8A] py-16">
-        <div className="max-w-7xl mx-auto px-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-          <div>
-            <p className="text-4xl font-bold mb-2">3</p>
-            <p className="text-sm opacity-80">Languages Taught</p>
+      {/* Newsletter Signup */}
+      <section className="max-w-7xl mx-auto px-10 py-16">
+        <div className="relative overflow-hidden rounded-md bg-gradient-to-r from-[#0B1B4D] to-[#12296B] px-8 py-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-white font-bold text-lg">Stay updated with our latest news</h3>
+              <p className="text-white/60 text-sm max-w-sm">
+                Subscribe to get updates on new courses, special offers, and language tips.
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-4xl font-bold mb-2">7–70</p>
-            <p className="text-sm opacity-80">Ages Welcome</p>
-          </div>
-          <div>
-            <p className="text-4xl font-bold mb-2">4+</p>
-            <p className="text-sm opacity-80">Exam Prep Tracks</p>
-          </div>
-          <div>
-            <p className="text-4xl font-bold mb-2">100%</p>
-            <p className="text-sm opacity-80">Certified Instructors</p>
-          </div>
-        </div>
-      </section>
 
-      {/* References Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-10 text-center">
-          <h2 className="text-2xl font-bold text-[#314A8A] mb-10">
-            Some of Our Partners
-          </h2>
-          <div className="flex flex-wrap justify-center gap-6">
-            {["Partner 1", "Partner 2", "Partner 3", "Partner 4", "Partner 5"].map((name, i) => (
-              <div
-                key={i}
-                className="border border-gray-200 rounded-xl px-10 py-6 text-gray-400 font-semibold"
-              >
-                {name}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <form className="flex w-full lg:w-auto gap-3">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="flex-1 lg:w-64 bg-white/10 border border-white/20 rounded px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-[#3674D6] transition"
+            />
+            <button
+              type="submit"
+              className="bg-[#3674D6] text-white font-semibold px-6 py-3 rounded hover:bg-[#0E4396] transition whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </form>
 
-      {/* CTA Banner */}
-      <section className="max-w-7xl mx-auto px-10 py-24 text-center">
-        <h2 className="text-4xl font-bold text-[#314A8A] mb-4">
-          Ready to Start Your Language Journey?
-        </h2>
-        <p className="text-gray-600 text-lg mb-8 max-w-xl mx-auto">
-          Book a free placement test today and find the course that&apos;s
-          right for you.
-        </p>
-        <button className="bg-[#3674D6] text-white text-lg font-bold px-10 py-5 rounded hover:bg-[#0E4396] transition">
-          Book Free Placement Test →
-        </button>
+          <svg className="hidden lg:block w-20 h-16 text-[#3674D6] shrink-0" viewBox="0 0 100 60" fill="none">
+            <path
+              d="M4 50 C 30 50, 45 22, 62 16"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeDasharray="3 5"
+              opacity="0.6"
+            />
+            <path
+              fill="currentColor"
+              d="M58 8l30 12-11 3-4 11-6-11-13-6z"
+            />
+          </svg>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#0E1E4A] text-white py-16">
-        <div className="max-w-7xl mx-auto px-10 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <footer className="bg-gradient-to-r from-[#0B1B4D] to-[#12296B] text-white pt-16 pb-8">
+        <div className="max-w-7xl mx-auto px-10 grid grid-cols-1 md:grid-cols-5 gap-10">
           <div>
             <Image
-              src="/elite-dil-evi-logo-transparent.png"
+              src="/logo.jpeg"
               alt="Elite Dil Evi"
-              width={70}
-              height={70}
+              width={96}
+              height={96}
               className="mb-4"
             />
-            <p className="text-sm opacity-70">
+            <h4 className="text-2xl font-bold mb-2">Elite Dil Evi</h4>
+            <p className="text-sm text-white/60">
               Shaping futures through language, one course at a time.
             </p>
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Courses</h4>
-            <ul className="space-y-2 text-sm opacity-80">
-              <li><Link href="/courses/german">German</Link></li>
-              <li><Link href="/courses/english">English</Link></li>
-              <li><Link href="/courses/turkish">Turkish</Link></li>
+            <h4 className="text-lg font-bold mb-1">Courses</h4>
+            <span className="block h-[2px] w-8 bg-[#3674D6] mb-4" />
+            <ul className="space-y-3 text-base text-white/80">
+              {[
+                { label: "English", href: "/courses/english" },
+                { label: "German", href: "/courses/german" },
+                { label: "Turkish", href: "/courses/turkish" },
+              ].map((c) => (
+                <li key={c.label}>
+                  <Link href={c.href} className="flex items-center gap-2 hover:text-white transition">
+                    <span className="text-[#3674D6]">›</span> {c.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Exam Preparation</h4>
-            <ul className="space-y-2 text-sm opacity-80">
-              <li><Link href="/exams/toefl">TOEFL</Link></li>
-              <li><Link href="/exams/ielts">IELTS</Link></li>
-              <li><Link href="/exams/german-exams">German Exams</Link></li>
+            <h4 className="text-lg font-bold mb-1">Legal</h4>
+            <span className="block h-[2px] w-8 bg-[#3674D6] mb-4" />
+            <ul className="space-y-3 text-base text-white/80">
+              {[
+                { label: "Privacy Policy", href: "/privacy" },
+                { label: "Terms of Use", href: "/terms" },
+              ].map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} className="flex items-center gap-2 hover:text-white transition">
+                    <span className="text-[#3674D6]">›</span> {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Contact</h4>
-            <ul className="space-y-2 text-sm opacity-80">
-              <li>📞 0505 XXX XX XX</li>
-              <li>📍 Your Address, Istanbul</li>
-              <li><Link href="/contact">Contact Us</Link></li>
+            <h4 className="text-lg font-bold mb-1">Exam Preparation</h4>
+            <span className="block h-[2px] w-8 bg-[#3674D6] mb-4" />
+            <ul className="space-y-3 text-base text-white/80">
+              {[
+                { label: "IELTS", href: "/exams/ielts" },
+                { label: "TOEFL", href: "/exams/toefl" },
+                { label: "TestDaF", href: "/exams/testdaf" },
+              ].map((e) => (
+                <li key={e.label}>
+                  <Link href={e.href} className="flex items-center gap-2 hover:text-white transition">
+                    <span className="text-[#3674D6]">›</span> {e.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-bold mb-1">Contact</h4>
+            <span className="block h-[2px] w-8 bg-[#3674D6] mb-4" />
+            <ul className="space-y-3 text-base text-white/80">
+              <li className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-[#3674D6] shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                </svg>
+                +90 505 XXX XX XX
+              </li>
+              <li className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-[#3674D6] shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                Istanbul, Türkiye
+              </li>
+              <li className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-[#3674D6] shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+                info@elitedilevi.com
+              </li>
+            </ul>
+            <div className="flex items-center gap-3 mt-6">
+              <a href="#" aria-label="Facebook" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.878h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94z" />
+                </svg>
+              </a>
+              <a href="#" aria-label="Instagram" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                </svg>
+              </a>
+              <a href="#" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="text-center text-xs opacity-50 mt-12">
-          © {new Date().getFullYear()} Elite Dil Evi. All rights reserved.
+        <div className="max-w-7xl mx-auto px-10 mt-12 pt-8 border-t border-white/10 text-center">
+          <p className="text-sm text-white/50">
+            © {new Date().getFullYear()} Elite Dil Evi. All rights reserved.
+          </p>
         </div>
       </footer>
 
