@@ -3,46 +3,36 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const features = [
-  {
-    title: "Expert Teachers",
-    desc: "Certified and experienced instructors dedicated to your success.",
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 017.231-4.41 60.46 60.46 0 00-.491-6.347M4.26 10.147a48.474 48.474 0 017.324-2.815M4.26 10.147a12.087 12.087 0 01-1.395-.914M19.74 10.147a48.474 48.474 0 00-7.324-2.815M19.74 10.147a12.087 12.087 0 001.395-.914M12 12.75c-1.5-1.5-3.5-2-5.5-1.5m5.5 1.5c1.5-1.5 3.5-2 5.5-1.5m-11 0V16m11-4.75V16M12 7.332V3" />
-    ),
-  },
-  {
-    title: "Small Class Sizes",
-    desc: "Personal attention and more speaking practice in every class.",
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-    ),
-  },
-  {
-    title: "International Exams",
-    desc: "We prepare you for Goethe, Cambridge, TOEFL and YDS.",
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
-    ),
-  },
-  {
-    title: "Speaking Focus",
-    desc: "Communicative lessons that build real-world speaking skills.",
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-    ),
-  },
+const partners = [
+  { name: "Aventis Groups", src: "/AG.jpeg", height: "h-28" },
+  { name: "CPD Standards Board", src: "/CPD.webp", height: "h-32" },
+  { name: "The CPD Group", src: "/CPD-GOLD.webp" },
+  { name: "Pearson", src: "/pearsonpte.png" },
 ];
 
-const partners = [
-  { name: "Nordic Grove", icon: "M12 3l9 9-9 9-9-9 9-9z" },
-  { name: "Vertex Labs", icon: "M12 3v18M3 12h18" },
-  { name: "Solace Studio", icon: "M12 21a9 9 0 100-18 9 9 0 000 18z" },
-  { name: "Pinnacle Group", icon: "M4 20l8-16 8 16H4z" },
-  { name: "Bright Harbor", icon: "M3 12l9-9 9 9M5 10v10h14V10" },
-  { name: "Meridian Co", icon: "M4 6h16M4 12h16M4 18h16" },
-  { name: "Aster & Finch", icon: "M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4l-6.3 4.6 2.3-7.2-6-4.6h7.6z" },
-  { name: "Halcyon Works", icon: "M4 4h16v16H4z" },
+const countries = [
+  { code: "TR", name: "Türkiye", image: "/turkey.png" },
+  { code: "ES", name: "Spain", image: "/spain.png" },
+  { code: "IT", name: "Italy", image: "/italy.png" },
+  { code: "HU", name: "Hungary", image: "/Hungary.png" },
+  { code: "LT", name: "Lithuania", image: "/lithuania.png" },
+  { code: "RO", name: "Romania", image: "/Romania.png" },
+  { code: "PL", name: "Poland", image: "/poland.png" },
+  { code: "MY", name: "Malaysia", image: "/malasiya.png" },
+];
+
+const universities = [
+  { name: "İstanbul Üniversitesi", country: "Türkiye", color: "#1B5FAE", logo: "/İstanbul_Üniversitesi_Logo.png" },
+  { name: "Sapienza Università di Roma", country: "Italy", color: "#7A1F2B", logo: "/Sapienza.png" },
+  { name: "Universidad Complutense de Madrid", country: "Spain", color: "#B22222", logo: "/2.webp" },
+  { name: "Bahçeşehir Üniversitesi", country: "Türkiye", color: "#154C8C", logo: "/Bahçeşehir.png" },
+  { name: "Üsküdar Üniversitesi", country: "Türkiye", color: "#0F9B8E", logo: "/Uskudar.webp", logoScale: true },
+  { name: "Universiti\nMalaya", country: "Malaysia", color: "#154C8C", logo: "/malay.png", logoClass: "object-contain scale-[1.75] translate-y-2" },
+  { name: "Uniwersytet Warszawski", country: "Poland", color: "#B22222", logo: "/1.webp" },
+  { name: "Eötvös Loránd University", country: "Hungary", color: "#154C8C", logo: "/elte.png", logoScale: true },
+  { name: "Beykoz University", country: "Türkiye", color: "#7A1F2B", logo: "/beykoz.png" },
+  { name: "University of Bucharest", country: "Romania", color: "#1B5FAE" },
+  { name: "Vilnius University", country: "Lithuania", color: "#8A1538" },
 ];
 
 const stats = [
@@ -112,16 +102,18 @@ function useCountUp(target, active, duration = 1500) {
 function StatItem({ stat, active }) {
   const count = useCountUp(stat.target, active);
   return (
-    <div className="flex flex-col items-center text-center">
-      <svg className="w-7 h-7 text-white/70 mb-2" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+    <div className="flex items-center gap-4 justify-center text-center sm:text-left">
+      <svg className="w-8 h-8 text-white/70 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         {stat.icon}
       </svg>
-      <p className="text-3xl font-bold text-white">
-        {count.toLocaleString()}
-        {stat.suffix}
-      </p>
-      <p className="text-sm font-semibold text-white/90 mt-1">{stat.label}</p>
-      <p className="text-xs text-white/60">{stat.sub}</p>
+      <div>
+        <p className="text-2xl font-bold text-white leading-tight">
+          {count.toLocaleString()}
+          {stat.suffix}
+        </p>
+        <p className="text-sm font-semibold text-white/90">{stat.label}</p>
+        <p className="text-xs text-white/60">{stat.sub}</p>
+      </div>
     </div>
   );
 }
@@ -129,6 +121,36 @@ function StatItem({ stat, active }) {
 export default function AboutSection() {
   const statsRef = useRef(null);
   const [statsVisible, setStatsVisible] = useState(false);
+  const offersRef = useRef(null);
+  const [offersVisible, setOffersVisible] = useState(false);
+  const uniScrollRef = useRef(null);
+  const [uniIndex, setUniIndex] = useState(0);
+
+  const scrollToUni = (index) => {
+    const container = uniScrollRef.current;
+    if (!container) return;
+    const clamped = Math.max(0, Math.min(index, universities.length - 1));
+    const card = container.children[clamped];
+    if (card) {
+      container.scrollTo({ left: card.offsetLeft - container.offsetLeft, behavior: "smooth" });
+    }
+    setUniIndex(clamped);
+  };
+
+  const handleUniScroll = () => {
+    const container = uniScrollRef.current;
+    if (!container) return;
+    let closest = 0;
+    let closestDist = Infinity;
+    Array.from(container.children).forEach((card, i) => {
+      const dist = Math.abs(card.offsetLeft - container.offsetLeft - container.scrollLeft);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = i;
+      }
+    });
+    setUniIndex(closest);
+  };
 
   useEffect(() => {
     const el = statsRef.current;
@@ -148,169 +170,286 @@ export default function AboutSection() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const el = offersRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setOffersVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-white py-24">
-      <div className="max-w-7xl mx-auto px-10 grid lg:grid-cols-2 gap-16 items-center">
-        {/* LEFT: copy */}
-        <div>
-          <div className="flex items-center gap-3 mb-5">
-            <span className="h-px w-8 bg-[#3674D6]" />
-            <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#3674D6]">
-              About Elite Dil Evi
-            </span>
-          </div>
-
-          <h2 className="text-4xl sm:text-5xl font-bold leading-tight text-[#314A8A] mb-6">
-            Fluent enough to belong,{" "}
-            <span className="relative inline-block text-[#3674D6]">
-              wherever
-              <svg
-                className="absolute left-0 -bottom-1 w-full h-2 text-[#B08D57]"
-                viewBox="0 0 100 10"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0 6 Q 25 0, 50 6 T 100 6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{" "}
-            that is
-          </h2>
-
-          <p className="text-[#314A8A] text-lg mb-8 leading-relaxed">
-            At Elite Dil Evi, we help students of all ages speak with
-            confidence in German, English, and Turkish. With modern teaching
-            methods, expert instructors, and internationally recognized
-            certification, we open doors to your academic, professional, and
-            personal success.
-          </p>
-
-          {/* Feature cards */}
-          <div className="grid grid-cols-2 gap-4 mb-10">
-            {features.map((f) => (
-              <div
-                key={f.title}
-                className="bg-white border border-gray-100 rounded shadow-sm p-3.5 hover:shadow-md transition"
-              >
-                <div className="w-8 h-8 rounded-full bg-[#EAF0FB] flex items-center justify-center mb-2">
-                  <svg className="w-4 h-4 text-[#3674D6]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    {f.icon}
-                  </svg>
-                </div>
-                <h3 className="font-bold text-[#314A8A] text-sm mb-0.5">{f.title}</h3>
-                <p className="text-gray-500 text-xs leading-snug">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* RIGHT: photo with badge */}
-        <div className="relative lg:-mt-16">
-          <div className="relative rounded-md overflow-hidden shadow-2xl border-8 border-[#0E1E4A]">
-            <Image
-              src="/about%20us.png"
-              alt="Elite Dil Evi Students"
-              width={800}
-              height={600}
-              className="w-full h-[520px] object-cover"
-            />
-          </div>
-
-          <div className="absolute -bottom-6 left-6 right-6 sm:right-auto bg-[#314A8A] rounded shadow-lg px-5 py-4 flex items-center gap-4">
-            <div className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-white font-bold text-sm sm:text-base leading-tight">
-                Trusted by 2,000+ Students
-              </p>
-              <div className="flex gap-0.5 mt-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} className="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.538 1.118l-3.367-2.447a1 1 0 00-1.176 0l-3.367 2.447c-.783.57-1.838-.196-1.538-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <section className="bg-white">
       {/* Full-width stats bar */}
-      <div ref={statsRef} className="w-full bg-[#314A8A] mt-20 py-14">
-        <div className="max-w-7xl mx-auto px-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div ref={statsRef} className="w-full bg-[#154C8C] py-14">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x md:divide-white/15">
           {stats.map((s) => (
             <StatItem key={s.label} stat={s} active={statsVisible} />
           ))}
         </div>
       </div>
 
-      {/* CTA band */}
-      <div className="max-w-7xl mx-auto px-10 mt-20">
-        <div className="bg-gradient-to-b from-[#EAF3FF] to-white rounded-3xl px-10 py-14 flex flex-col items-center text-center gap-6">
-          <h3
-            className="text-lg sm:text-xl font-bold text-[#314A8A]"
-            style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-          >
-            Ready to start your language journey?
+      {/* Current Offers */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 pt-16 pb-4">
+        <div className="text-center max-w-2xl mx-auto mb-12 mt-4">
+          <h3 className="text-4xl font-bold text-[#314A8A]">
+            Current Offers
           </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="#"
-              className="group inline-flex items-center gap-2 bg-[#3674D6] text-white font-semibold px-6 py-3 rounded shadow-md transition-all duration-300 hover:bg-[#0E4396] hover:-translate-y-0.5 hover:shadow-lg"
+        </div>
+
+        <div
+          ref={offersRef}
+          className="grid sm:grid-cols-2 gap-8 sm:gap-16 max-w-4xl mx-auto justify-center justify-items-center"
+        >
+          {[
+            {
+              title: "Turkish Language Course",
+              image: "/discountt.png",
+              oldPrice: "12.000 TL",
+              newPrice: "10.000 TL",
+            },
+            {
+              title: "Junior English Course",
+              image: "/discount.png",
+              oldPrice: "15.000 TL",
+              newPrice: "10.000 TL",
+            },
+          ].map((offer, i) => (
+            <div
+              key={offer.title}
+              style={{ animationDelay: offersVisible ? `${i * 150}ms` : "0ms" }}
+              className={`bg-white rounded-md shadow-xl overflow-hidden flex flex-col w-full max-w-sm transition-all duration-300 hover:-translate-y-8 hover:shadow-2xl ${
+                offersVisible ? "animate-rise-up" : "opacity-0"
+              }`}
             >
-              Explore Courses
-              <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </a>
-            <a
-              href="/contact"
-              className="group inline-flex items-center gap-2 bg-white text-[#3674D6] font-semibold px-6 py-3 rounded border border-gray-200 transition-all duration-300 hover:bg-gray-50 hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              Contact Us
-              <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </a>
+              <div className="relative h-[410px]">
+                <Image
+                  src={offer.image}
+                  alt={offer.title}
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
+
+              <div className="flex items-center justify-between gap-4 px-6 py-5 border-t border-gray-100">
+                <div className="text-left shrink-0">
+                  <p className="text-gray-500 text-sm font-bold line-through">
+                    {offer.oldPrice}
+                  </p>
+                  <p className="text-lg font-bold text-[#0B1B4D]">
+                    {offer.newPrice}
+                  </p>
+                </div>
+                <button className="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-semibold py-2 rounded hover:bg-[#0E4396] transition">
+                  Enroll Now
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-20">
+          <p className="flex items-center justify-center gap-2 text-[#314A8A] font-bold text-lg">
+            <svg className="w-6 h-6 text-[#D9A441]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+              <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Limited Time Offer!
+          </p>
+          <p className="text-gray-500 text-base mt-2 max-w-lg mx-auto">
+            Don&apos;t miss the opportunity to learn a new language with our
+            expert instructors.
+          </p>
+        </div>
+      </div>
+
+      {/* CTA band */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 mt-12">
+        <div className="bg-[#EAF3FF] rounded-md px-6 py-5 flex flex-col sm:flex-row items-center gap-4">
+          <svg className="w-8 h-8 text-[#1B5FAE] shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01-.231 1.337 49.949 49.949 0 00-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 01-.707 0A50.009 50.009 0 007.5 12.174v-.224c0-.131.067-.248.172-.311a54.614 54.614 0 014.653-2.52.75.75 0 00-.65-1.352 56.129 56.129 0 00-4.78 2.589 1.858 1.858 0 00-.859 1.228 49.803 49.803 0 00-4.634-1.527.75.75 0 01-.231-1.337A60.653 60.653 0 0111.7 2.805z" />
+            <path d="M13.06 15.473a48.45 48.45 0 017.666-3.282c.134 1.414.22 2.843.255 4.285a.75.75 0 01-.46.71 47.878 47.878 0 00-8.105 4.342.75.75 0 01-.832 0 47.877 47.877 0 00-8.104-4.342.75.75 0 01-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 00-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.902.434 1.346.663a6.727 6.727 0 00.551-1.607 1.5 1.5 0 00.14-2.67v-.645a48.549 48.549 0 013.44 1.667 2.25 2.25 0 002.12 0z" />
+          </svg>
+          <div className="w-px self-stretch bg-[#1B5FAE]/25" />
+          <div className="flex-1 text-center sm:text-left">
+            <p className="font-bold text-[#314A8A] text-lg">Ready to start your language journey?</p>
+            <p className="text-gray-500 text-base">Explore our courses or contact our advisors to find the right fit for your goals.</p>
           </div>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-white text-[#1B5FAE] border border-[#1B5FAE] font-semibold px-5 py-2.5 rounded hover:bg-[#1B5FAE] hover:text-white transition shrink-0"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+            </svg>
+            Contact Us
+          </a>
         </div>
       </div>
 
       {/* Partner logo marquee */}
-      <div className="relative w-full mt-20 py-10 border-t border-gray-100 overflow-hidden">
+      <div className="relative w-full mt-20 pb-10 border-t border-gray-100 overflow-hidden">
+        <p className="text-center text-xl font-bold tracking-[0.15em] text-[#314A8A] uppercase pt-4 pb-8">
+          Accredited by International Organizations
+        </p>
         <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
 
-        <div className="flex w-max animate-marquee">
-          {[...partners, ...partners].map((p, i) => (
+        <div className="flex w-max items-center animate-marquee">
+          {Array(8).fill(partners).flat().map((p, i) => (
             <div
               key={`${p.name}-${i}`}
-              className="flex items-center gap-2 px-10 shrink-0 text-gray-400 grayscale opacity-70 hover:opacity-100 hover:text-[#314A8A] transition"
+              className="flex items-center px-6 sm:px-10 shrink-0 opacity-90 hover:opacity-100 transition"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d={p.icon} />
-              </svg>
-              <span className="text-lg font-bold whitespace-nowrap">{p.name}</span>
+              <Image
+                src={p.src}
+                alt={p.name}
+                width={160}
+                height={104}
+                className={`${p.height || "h-28"} w-auto object-contain`}
+              />
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* University Guidance */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 mt-20 text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#314A8A] mb-3">
+          Secure university acceptance across 8 countries
+        </h2>
+        <p className="text-gray-500 mb-12">
+          Wherever your future takes you, we help you get there
+        </p>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {countries.map((c) => (
+            <div
+              key={c.code}
+              className="group relative bg-[#F3F6FC] rounded-md py-8 px-4 flex flex-col items-center justify-center gap-1 overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+            >
+              {c.image && (
+                <>
+                  <Image
+                    src={c.image}
+                    alt={c.name}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    sizes="(min-width: 768px) 300px, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-[#0E1E4A]/40" />
+                </>
+              )}
+              <span className={`absolute top-2 text-5xl font-extrabold select-none ${c.image ? "text-white/40" : "text-white"}`}>
+                {c.code}
+              </span>
+              <span className={`relative mt-8 text-base font-bold ${c.image ? "text-white" : "text-[#1B5FAE]"}`}>
+                {c.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* University Partners Carousel */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 mt-20 text-center">
+        <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#1B5FAE] mb-3">
+          Our Partners
+        </p>
+        <h2
+          className="text-2xl sm:text-3xl font-bold text-[#0E1E4A] mb-2"
+          style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+        >
+          Collaborating with Leading Universities
+        </h2>
+        <p className="text-gray-500 mb-10">
+          We partner with top institutions across Europe and Asia to bring you the best opportunities.
+        </p>
+
+        <div className="relative">
+          <button
+            onClick={() => scrollToUni(uniIndex - 1)}
+            aria-label="Previous"
+            className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 z-10 w-9 h-9 rounded-full bg-white shadow-md items-center justify-center text-[#0E1E4A] hover:bg-gray-50 transition"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          <div
+            ref={uniScrollRef}
+            onScroll={handleUniScroll}
+            className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 [&::-webkit-scrollbar]:hidden"
+            style={{ scrollbarWidth: "none" }}
+          >
+            {universities.map((u) => (
+              <div
+                key={u.name}
+                className="snap-start shrink-0 w-[140px] sm:w-[155px] bg-white border border-gray-100 rounded-md shadow-sm hover:shadow-lg transition p-4 flex flex-col items-center text-center cursor-pointer"
+              >
+                {u.logo ? (
+                  <div className="w-20 h-20 mb-3 shrink-0 overflow-hidden flex items-center justify-center">
+                    <Image
+                      src={u.logo}
+                      alt={u.name}
+                      width={80}
+                      height={80}
+                      className={`w-full h-full ${u.logoClass || (u.logoScale ? "object-contain scale-150" : "object-contain p-1")}`}
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="w-20 h-20 rounded-full flex items-center justify-center mb-3"
+                    style={{ backgroundColor: `${u.color}1A` }}
+                  >
+                    <svg className="w-7 h-7" fill="none" stroke={u.color} strokeWidth={1.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 9v6" />
+                    </svg>
+                  </div>
+                )}
+                <p className="font-bold text-[#0E1E4A] text-sm leading-snug whitespace-pre-line">{u.name}</p>
+                <p className="text-gray-400 text-xs uppercase tracking-wide mt-1">{u.country}</p>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={() => scrollToUni(uniIndex + 1)}
+            aria-label="Next"
+            className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-8 z-10 w-9 h-9 rounded-full bg-white shadow-md items-center justify-center text-[#0E1E4A] hover:bg-gray-50 transition"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mt-6 mb-10">
+          {universities.map((u, i) => (
+            <button
+              key={u.name}
+              onClick={() => scrollToUni(i)}
+              aria-label={`Go to ${u.name}`}
+              className={`h-2 rounded-full transition-all ${
+                i === uniIndex ? "w-6 bg-[#1B5FAE]" : "w-2 bg-gray-300"
+              }`}
+            />
           ))}
         </div>
       </div>

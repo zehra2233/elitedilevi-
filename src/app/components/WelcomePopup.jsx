@@ -4,14 +4,22 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+let hasShownWelcome = false;
+
 export default function WelcomePopup({ onClose }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(() => !hasShownWelcome);
 
   if (!open) return null;
 
   const handleClose = () => {
+    hasShownWelcome = true;
     setOpen(false);
     onClose?.();
+  };
+
+  const handleNavigate = () => {
+    hasShownWelcome = true;
+    setOpen(false);
   };
 
   return (
@@ -42,9 +50,9 @@ export default function WelcomePopup({ onClose }) {
 
         <div className="flex flex-col gap-3">
           <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className="w-full bg-[#3674D6] text-white font-bold text-sm py-3 rounded-md hover:bg-[#0E4396] transition flex items-center justify-center gap-2"
+            href="/registration"
+            onClick={handleNavigate}
+            className="w-full bg-[#1B5FAE] text-white font-bold text-sm py-3 rounded-md hover:bg-[#0E4396] transition flex items-center justify-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
@@ -53,8 +61,8 @@ export default function WelcomePopup({ onClose }) {
           </Link>
 
           <Link
-            href="/contact"
-            onClick={() => setOpen(false)}
+            href="/consultation"
+            onClick={handleNavigate}
             className="w-full bg-gradient-to-r from-[#E0A93B] to-[#C6862A] text-white font-bold text-sm py-3 rounded-md hover:opacity-90 transition flex items-center justify-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -73,7 +81,7 @@ export default function WelcomePopup({ onClose }) {
 
         <button
           onClick={handleClose}
-          className="mt-4 inline-flex items-center gap-1.5 text-[#3674D6] font-normal text-xs hover:underline"
+          className="mt-4 inline-flex items-center gap-1.5 text-[#1B5FAE] font-normal text-xs hover:underline"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
