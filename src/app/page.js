@@ -88,9 +88,9 @@ export default function Home() {
 
             <Link
               href="/placementtest"
-              className="inline-block bg-[#1B5FAE] text-white text-sm sm:text-base font-bold px-5 sm:px-6 py-2.5 sm:py-3 rounded hover:bg-[#0E4396] transition"
+              className="inline-block bg-[#1B5FAE] text-white text-sm sm:text-base font-bold uppercase px-5 sm:px-6 py-2.5 sm:py-3 rounded hover:bg-[#0E4396] transition"
             >
-              Book Free Placement Test →
+              Book Placement Test →
             </Link>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function Home() {
       </section>
 
       {/* Language Cards Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-12 pb-24">
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-20 pb-24">
         <div className="text-center max-w-2xl mx-auto mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-[#314A8A] leading-tight">
             Pick Your Language, <span className="text-[#1B5FAE] underline decoration-2 underline-offset-4">Start Today</span>
@@ -246,7 +246,7 @@ export default function Home() {
               image: "/turkish.png",
               color: "#D63636",
               popular: false,
-              desc: "Turkish for living, working and studying in Turkey — everyday fluency, not just textbook grammar.",
+              desc: "Turkish for living, working and studying in Turkey. Everyday fluency, not just textbook grammar.",
               flag: (
                 <>
                   <rect width="60" height="40" fill="#E30A17" />
@@ -279,7 +279,7 @@ export default function Home() {
               image: "/germany.png",
               color: "#1B4332",
               popular: false,
-              desc: "German for admission, work visas, and daily life — with exam-track options for certification.",
+              desc: "German for admission, work visas, and daily life. With exam-track options for certification.",
               flag: (
                 <>
                   <rect width="60" height="13.3" fill="#000" />
@@ -416,6 +416,7 @@ export default function Home() {
               title: "Online Courses",
               subtitle: "Courses for Every Level",
               color: "#1B5FAE",
+              href: "/onlineclass",
               icon: (
                 <>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 8.25h16.5a1.5 1.5 0 011.5 1.5v9a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5v-9a1.5 1.5 0 011.5-1.5z" />
@@ -427,6 +428,7 @@ export default function Home() {
               title: "Admission Services",
               subtitle: "University Applications",
               color: "#1B5FAE",
+              href: "/uniguide",
               icon: (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18M18.75 3v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
               ),
@@ -498,7 +500,7 @@ export default function Home() {
       {/* Process Steps Section */}
       <section className="bg-gray-100 pt-10 pb-12">
         <div className="max-w-6xl mx-auto px-6 sm:px-10">
-          <div className="text-center max-w-2xl mx-auto mb-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-[#1B5FAE] font-semibold mb-1">Our Process</p>
             <h2 className="text-4xl font-bold text-[#314A8A]">
               From Language Level to Acceptance Letter
@@ -536,7 +538,7 @@ export default function Home() {
                 ),
               },
               {
-                title: "Acceptance",
+                title: "Visa And Acceptance",
                 color: "#1B5FAE",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />

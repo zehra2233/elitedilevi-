@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
+import CustomSelect from "../components/CustomSelect";
 
 const countries = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia",
@@ -121,18 +126,62 @@ const whyItems = [
   },
 ];
 
-const selectFieldClass =
-  "w-full appearance-none border border-gray-200 rounded-md pl-4 pr-9 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#1B5FAE] transition bg-white";
-
-function ChevronDown() {
-  return (
-    <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-    </svg>
-  );
-}
-
 export default function RegistrationPage() {
+  const [course, setCourse] = useState("");
+  const [level, setLevel] = useState("");
+  const [phoneCountry, setPhoneCountry] = useState("TR-90");
+  const [residenceCountry, setResidenceCountry] = useState("");
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
+
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    const dialCode = phoneCountry.split("-")[1] || "90";
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/registrations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          email: email,
+          phone_country_code: `+${dialCode}`,
+          phone: phone,
+          residence_country: residenceCountry,
+          course: course,
+          level: level,
+          notes: notes,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Something went wrong");
+      }
+
+      setStatus("success");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setResidenceCountry("");
+      setCourse("");
+      setLevel("");
+      setNotes("");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err.message);
+    }
+  };
+
   return (
     <main>
       <Header />
@@ -154,9 +203,9 @@ export default function RegistrationPage() {
             className="text-4xl sm:text-5xl font-bold text-[#314A8A] leading-tight mb-4"
             style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
           >
-            Register for
+            Register for a
             <br />
-            a Course
+            Course
           </h1>
           <div className="h-[3px] w-16 bg-[#D9A441] rounded-full mb-5" />
           <p className="text-gray-600 max-w-md">
@@ -179,13 +228,16 @@ export default function RegistrationPage() {
             </p>
             <div className="h-[3px] w-12 bg-[#D9A441] rounded-full mb-8" />
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Full Name <span className="text-red-500">*</span></label>
                   <input
                     type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
+                    required
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
                 </div>
@@ -193,6 +245,8 @@ export default function RegistrationPage() {
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Email Address</label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
@@ -201,69 +255,71 @@ export default function RegistrationPage() {
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Phone Number <span className="text-red-500">*</span></label>
                   <div className="flex gap-2">
-                    <div className="relative shrink-0">
-                      <select className={`${selectFieldClass} w-28 pl-3`} defaultValue="TR-90">
-                        {phoneCountries.map(([iso2, dial]) => (
-                          <option key={`${iso2}-${dial}`} value={`${iso2}-${dial}`}>
-                            {iso2} +{dial}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown />
+                    <div className="w-28 shrink-0">
+                      <CustomSelect
+                        value={phoneCountry}
+                        onChange={setPhoneCountry}
+                        options={phoneCountries.map(([iso2, dial]) => ({
+                          value: `${iso2}-${dial}`,
+                          label: `${iso2} +${dial}`,
+                        }))}
+                      />
                     </div>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       placeholder="Enter your phone number"
+                      required
                       className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                     />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Country of Residence</label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select your country</option>
-                      {countries.map((c) => (
-                        <option key={c}>{c}</option>
-                      ))}
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={residenceCountry}
+                    onChange={setResidenceCountry}
+                    placeholder="Select your country"
+                    options={countries.map((c) => ({ value: c, label: c }))}
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Course <span className="text-red-500">*</span></label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select a course</option>
-                      <option>German Courses</option>
-                      <option>English (Adults)</option>
-                      <option>English (Junior)</option>
-                      <option>Turkish Courses</option>
-                      <option>Online Courses</option>
-                      <option>Private Lessons</option>
-                      <option>Exam Preparation</option>
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={course}
+                    onChange={setCourse}
+                    placeholder="Select a course"
+                    options={[
+                      "German Courses",
+                      "English (Adults)",
+                      "English (Junior)",
+                      "Turkish Courses",
+                      "Online Courses",
+                      "Private Lessons",
+                      "Exam Preparation",
+                    ].map((c) => ({ value: c, label: c }))}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
                     Current Level <span className="text-red-500">*</span>
                   </label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select your level</option>
-                      <option>Beginner (A1)</option>
-                      <option>Elementary (A2)</option>
-                      <option>Intermediate (B1)</option>
-                      <option>Upper-Intermediate (B2)</option>
-                      <option>Advanced (C1)</option>
-                      <option>Proficient (C2)</option>
-                      <option>Not sure yet</option>
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={level}
+                    onChange={setLevel}
+                    placeholder="Select your level"
+                    options={[
+                      "Beginner (A1)",
+                      "Elementary (A2)",
+                      "Intermediate (B1)",
+                      "Upper-Intermediate (B2)",
+                      "Advanced (C1)",
+                      "Proficient (C2)",
+                      "Not sure yet",
+                    ].map((l) => ({ value: l, label: l }))}
+                  />
                 </div>
               </div>
 
@@ -273,6 +329,8 @@ export default function RegistrationPage() {
                 </label>
                 <textarea
                   rows={4}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
                   placeholder="Tell us more about your goals and how we can help you..."
                   className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition resize-none"
                 />
@@ -280,13 +338,25 @@ export default function RegistrationPage() {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-bold py-3.5 rounded-md hover:bg-[#0E4396] transition"
+                disabled={status === "sending"}
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-bold py-3.5 rounded-md hover:bg-[#0E4396] transition disabled:opacity-60"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                 </svg>
-                Submit Registration
+                {status === "sending" ? "Sending..." : "Submit Registration"}
               </button>
+
+              {status === "success" && (
+                <p className="text-center text-sm text-green-600 font-medium">
+                  Thank you! Your registration has been received. We&apos;ll be in touch soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-center text-sm text-red-600 font-medium">
+                  {errorMessage || "Something went wrong. Please try again."}
+                </p>
+              )}
 
               <p className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -322,6 +392,8 @@ export default function RegistrationPage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

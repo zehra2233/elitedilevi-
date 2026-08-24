@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
+import CustomSelect from "../components/CustomSelect";
 
 const countries = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia",
@@ -121,18 +126,72 @@ const whyItems = [
   },
 ];
 
-const selectFieldClass =
-  "w-full appearance-none border border-gray-200 rounded-md pl-4 pr-9 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#1B5FAE] transition bg-white";
-
-function ChevronDown() {
-  return (
-    <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-    </svg>
-  );
-}
-
 export default function ConsultationPage() {
+  const [studyCountry, setStudyCountry] = useState("");
+  const [degreeLevel, setDegreeLevel] = useState("");
+  const [educationLevel, setEducationLevel] = useState("");
+  const [phoneCountry, setPhoneCountry] = useState("TR-90");
+  const [residenceCountry, setResidenceCountry] = useState("");
+  const [nationality, setNationality] = useState("");
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [preferredUniversity, setPreferredUniversity] = useState("");
+  const [notes, setNotes] = useState("");
+
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    const dialCode = phoneCountry.split("-")[1] || "90";
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/consultations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          email: email,
+          phone_country_code: `+${dialCode}`,
+          phone: phone,
+          residence_country: residenceCountry,
+          nationality: nationality,
+          study_country: studyCountry,
+          degree_level: degreeLevel,
+          preferred_university: preferredUniversity,
+          education_level: educationLevel,
+          notes: notes,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Something went wrong");
+      }
+
+      setStatus("success");
+      // reset form
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setResidenceCountry("");
+      setNationality("");
+      setStudyCountry("");
+      setDegreeLevel("");
+      setPreferredUniversity("");
+      setEducationLevel("");
+      setNotes("");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err.message);
+    }
+  };
+
   return (
     <main>
       <Header />
@@ -180,13 +239,16 @@ export default function ConsultationPage() {
             </p>
             <div className="h-[3px] w-12 bg-[#D9A441] rounded-full mb-8" />
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Full Name <span className="text-red-500">*</span></label>
                   <input
                     type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
+                    required
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
                 </div>
@@ -194,7 +256,10 @@ export default function ConsultationPage() {
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Email Address <span className="text-red-500">*</span></label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
+                    required
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
                 </div>
@@ -202,76 +267,71 @@ export default function ConsultationPage() {
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Phone Number <span className="text-red-500">*</span></label>
                   <div className="flex gap-2">
-                    <div className="relative shrink-0">
-                      <select className={`${selectFieldClass} w-28 pl-3`} defaultValue="TR-90">
-                        {phoneCountries.map(([iso2, dial]) => (
-                          <option key={`${iso2}-${dial}`} value={`${iso2}-${dial}`}>
-                            {iso2} +{dial}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown />
+                    <div className="w-28 shrink-0">
+                      <CustomSelect
+                        value={phoneCountry}
+                        onChange={setPhoneCountry}
+                        options={phoneCountries.map(([iso2, dial]) => ({
+                          value: `${iso2}-${dial}`,
+                          label: `${iso2} +${dial}`,
+                        }))}
+                      />
                     </div>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       placeholder="Enter your phone number"
+                      required
                       className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                     />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Country of Residence <span className="text-red-500">*</span></label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select your country</option>
-                      {countries.map((c) => (
-                        <option key={c}>{c}</option>
-                      ))}
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={residenceCountry}
+                    onChange={setResidenceCountry}
+                    placeholder="Select your country"
+                    options={countries.map((c) => ({ value: c, label: c }))}
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Nationality <span className="text-red-500">*</span></label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select your nationality</option>
-                      {countries.map((c) => (
-                        <option key={c}>{c}</option>
-                      ))}
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={nationality}
+                    onChange={setNationality}
+                    placeholder="Select your nationality"
+                    options={countries.map((c) => ({ value: c, label: c }))}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Preferred Study Country</label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select study country</option>
-                      <option>Türkiye</option>
-                      <option>Italy</option>
-                      <option>Spain</option>
-                      <option>Poland</option>
-                      <option>Hungary</option>
-                      <option>Malaysia</option>
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={studyCountry}
+                    onChange={setStudyCountry}
+                    placeholder="Select study country"
+                    options={["Türkiye", "Italy", "Spain", "Poland", "Hungary", "Malaysia"].map((c) => ({
+                      value: c,
+                      label: c,
+                    }))}
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Degree Level</label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select degree level</option>
-                      <option>Foundation / Language</option>
-                      <option>Bachelor&apos;s</option>
-                      <option>Master&apos;s</option>
-                      <option>PhD</option>
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={degreeLevel}
+                    onChange={setDegreeLevel}
+                    placeholder="Select degree level"
+                    options={[
+                      { value: "Foundation / Language", label: "Foundation / Language" },
+                      { value: "Bachelor's", label: "Bachelor's" },
+                      { value: "Master's", label: "Master's" },
+                      { value: "PhD", label: "PhD" },
+                    ]}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
@@ -279,6 +339,8 @@ export default function ConsultationPage() {
                   </label>
                   <input
                     type="text"
+                    value={preferredUniversity}
+                    onChange={(e) => setPreferredUniversity(e.target.value)}
                     placeholder="Enter preferred university"
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
@@ -286,16 +348,17 @@ export default function ConsultationPage() {
 
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Current Education Level</label>
-                  <div className="relative">
-                    <select className={selectFieldClass} defaultValue="">
-                      <option value="" disabled>Select your current level</option>
-                      <option>High School</option>
-                      <option>Bachelor&apos;s</option>
-                      <option>Master&apos;s</option>
-                      <option>Other</option>
-                    </select>
-                    <ChevronDown />
-                  </div>
+                  <CustomSelect
+                    value={educationLevel}
+                    onChange={setEducationLevel}
+                    placeholder="Select your current level"
+                    options={[
+                      { value: "High School", label: "High School" },
+                      { value: "Bachelor's", label: "Bachelor's" },
+                      { value: "Master's", label: "Master's" },
+                      { value: "Other", label: "Other" },
+                    ]}
+                  />
                 </div>
               </div>
 
@@ -305,6 +368,8 @@ export default function ConsultationPage() {
                 </label>
                 <textarea
                   rows={4}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
                   placeholder="Tell us more about your goals and how we can help you..."
                   className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition resize-none"
                 />
@@ -312,13 +377,25 @@ export default function ConsultationPage() {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#E0A93B] to-[#C6862A] text-white font-bold py-3.5 rounded-md hover:opacity-90 transition"
+                disabled={status === "sending"}
+                className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#E0A93B] to-[#C6862A] text-white font-bold py-3.5 rounded-md hover:opacity-90 transition disabled:opacity-60"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
-                Book My Free Consultation
+                {status === "sending" ? "Sending..." : "Book My Free Consultation"}
               </button>
+
+              {status === "success" && (
+                <p className="text-center text-sm text-green-600 font-medium">
+                  Thank you! Your request has been received. We&apos;ll be in touch soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-center text-sm text-red-600 font-medium">
+                  {errorMessage || "Something went wrong. Please try again."}
+                </p>
+              )}
 
               <p className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -354,6 +431,8 @@ export default function ConsultationPage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

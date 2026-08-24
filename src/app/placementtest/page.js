@@ -27,7 +27,7 @@ export default function PlacementTestPage() {
 
       <section className="max-w-6xl mx-auto px-6 sm:px-10 pt-10 pb-16">
         <div className="text-center max-w-xl mx-auto mb-10">
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#314A8A]">Book Your Free Placement Test</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#314A8A]">Book Your Placement Test</h1>
         </div>
 
         <div className="grid lg:grid-cols-[1fr_340px] gap-6 items-start">

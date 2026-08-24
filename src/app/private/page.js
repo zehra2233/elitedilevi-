@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CustomSelect from "../components/CustomSelect";
 
 const otherPages = [
   { label: "English (Adults)", href: "/courses/english/adults" },
@@ -209,6 +213,8 @@ function ChevronDown() {
 }
 
 export default function PrivateLessonsPage() {
+  const [category, setCategory] = useState("");
+
   return (
     <main>
       <Header />
@@ -514,15 +520,15 @@ Private classes are ideal for students who prefer a more focused learning enviro
               <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
                 Category you would like information about <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <select className={selectFieldClass} defaultValue="">
-                  <option value="" disabled>Please select</option>
-                  <option value="online">Online Private Lessons</option>
-                  <option value="in-person">In-Person Private Lessons</option>
-                  <option value="exam">Exam-Focused Private Lessons</option>
-                </select>
-                <ChevronDown />
-              </div>
+              <CustomSelect
+                value={category}
+                onChange={setCategory}
+                options={[
+                  { value: "online", label: "Online Private Lessons" },
+                  { value: "in-person", label: "In-Person Private Lessons" },
+                  { value: "exam", label: "Exam-Focused Private Lessons" },
+                ]}
+              />
             </div>
 
             <div className="flex justify-end">

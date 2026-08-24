@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CustomSelect from "../components/CustomSelect";
 
 const otherPages = [
   { label: "English (Adults)", href: "/courses/english/adults" },
@@ -205,6 +209,8 @@ function ChevronDown() {
 }
 
 export default function GeneralCoursesPage() {
+  const [category, setCategory] = useState("");
+
   return (
     <main>
       <Header />
@@ -225,12 +231,16 @@ export default function GeneralCoursesPage() {
                 built around the CEFR framework from A1 to C2.
               </p>
               <div>
-                <Link
+                <a
                   href="#choose-language"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("choose-language")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
                   className="bg-[#1B5FAE] text-white text-sm sm:text-base font-bold px-5 sm:px-6 py-2.5 sm:py-3 rounded hover:bg-[#0E4396] transition"
                 >
                   View Course Plan →
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -333,7 +343,7 @@ To enroll, a placement test is administered first so every student starts at the
       </section>
 
       {/* Choose your language */}
-      <section id="choose-language" className="max-w-7xl mx-auto px-6 sm:px-10 py-16">
+      <section id="choose-language" className="max-w-7xl mx-auto px-6 sm:px-10 py-16 scroll-mt-24">
         <h2 className="text-center text-2xl sm:text-3xl font-bold text-[#314A8A] mb-10">
           Choose Your Language
         </h2>
@@ -495,15 +505,15 @@ To enroll, a placement test is administered first so every student starts at the
               <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
                 Category you would like information about <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
-                <select className={selectFieldClass} defaultValue="">
-                  <option value="" disabled>Please select</option>
-                  <option value="german">General German Course</option>
-                  <option value="english">General English Course</option>
-                  <option value="turkish">General Turkish Course</option>
-                </select>
-                <ChevronDown />
-              </div>
+              <CustomSelect
+                value={category}
+                onChange={setCategory}
+                options={[
+                  { value: "german", label: "General German Course" },
+                  { value: "english", label: "General English Course" },
+                  { value: "turkish", label: "General Turkish Course" },
+                ]}
+              />
             </div>
 
             <div className="flex justify-end">

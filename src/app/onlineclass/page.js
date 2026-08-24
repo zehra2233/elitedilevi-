@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import CustomSelect from "../../components/CustomSelect";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import CustomSelect from "../components/CustomSelect";
 
 const otherPages = [
   { label: "English (Adults)", href: "/courses/english/adults" },
@@ -14,6 +14,24 @@ const otherPages = [
   { label: "Turkish Courses", href: "/courses/turkish" },
   { label: "General Courses", href: "/general" },
   { label: "Private Lessons", href: "/private" },
+];
+
+const features = [
+  {
+    title: "Live Video Classes",
+    desc: "Real-time lessons with instructors, not pre-recorded videos.",
+    icon: "M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z",
+  },
+  {
+    title: "Learn From Anywhere",
+    desc: "Join class from home, work, or on the go.",
+    icon: "M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418",
+  },
+  {
+    title: "Small Interactive Groups",
+    desc: "Small classes keep everyone engaged and speaking.",
+    icon: "M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z",
+  },
 ];
 
 const countryCodes = [
@@ -131,7 +149,7 @@ function ChevronDown() {
   );
 }
 
-export default function IELTSPage() {
+export default function OnlineClassPage() {
   const [category, setCategory] = useState("");
 
   return (
@@ -141,46 +159,46 @@ export default function IELTSPage() {
       {/* Hero */}
       <section className="relative h-auto lg:h-[300px] overflow-hidden bg-white">
         <div className="flex flex-col-reverse lg:flex-row">
-          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 pt-6 pb-4 sm:pt-8 sm:pb-6 lg:py-0 flex flex-col justify-center overflow-hidden">
-            <div className="animate-slide-in-right mt-6">
+          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 py-14 lg:py-0 flex flex-col justify-center overflow-hidden">
+            <div className="animate-slide-in-right">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-3">
-                IELTS Exam Preparation
+                Online Courses
               </h1>
               <p className="text-[#1B5FAE] font-semibold mb-4">
-                Academic &amp; General Training
+                Learn From Anywhere, Live Online
               </p>
               <p className="text-gray-600 max-w-md mb-8">
-                Get exam-ready with focused IELTS preparation covering all
-                four skills. Learn proven strategies, practice with real
-                exam formats, and build the confidence to reach your
-                target band score.
+                Join live, interactive German, English, and Turkish classes
+                from anywhere in the world, taught by the same certified
+                instructors as our in-person courses.
               </p>
+              <div>
+                <Link
+                  href="#information-form"
+                  className="bg-[#1B5FAE] text-white text-sm sm:text-base font-bold px-5 sm:px-6 py-2.5 sm:py-3 rounded hover:bg-[#0E4396] transition"
+                >
+                  Enroll Now →
+                </Link>
+              </div>
             </div>
           </div>
 
           <div className="relative w-full lg:w-auto lg:flex-1 min-w-0 h-64 sm:h-80 lg:h-[300px]">
             <Image
-              src="/exam.jpg"
-              alt="IELTS Exam Preparation"
+              src="/online.jpg"
+              alt="Online Courses"
               fill
               className="object-cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
               priority
             />
             <div className="hidden lg:block absolute inset-y-0 left-0 w-40 sm:w-64 bg-gradient-to-r from-white to-transparent" />
-            <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-white rounded-2xl shadow-xl px-4 py-4 flex flex-col items-center text-center">
-              <span className="text-4xl font-extrabold text-[#E30A17] tracking-tight">
-                IELTS<sup className="text-xs align-super">™</sup>
-              </span>
-              <div className="w-16 h-[2px] bg-gray-200 my-3" />
-              <span className="text-base font-bold text-[#314A8A] leading-snug">Official Test<br />Preparation</span>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* IELTS Course Details */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-0 pb-16 sm:pt-4 lg:pt-16 lg:-translate-x-8">
+      {/* About Online Courses */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
           {/* Sidebar */}
           <aside className="w-full flex flex-col gap-6 order-2 lg:order-1">
@@ -209,96 +227,77 @@ export default function IELTSPage() {
 
           {/* Main content */}
           <div className="order-1 lg:order-2">
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          Our IELTS course is entirely focused on preparing for the IELTS exam and is designed with Test Skills, Reading, Writing, and Listening programs. All IELTS lessons are taught by experienced instructors with Cambridge CELTA certifications. Our preparation programs, offered by our experienced academic staff, are divided into two categories: one-on-one and group training. You can find the content of our training and detailed information below.
-        </p>
-
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">What is the IELTS exam?</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          IELTS is a globally recognized language proficiency test that provides fast and reliable results based on established standards accepted by over 10,000 institutions in approximately 140 countries. Participants can take the IELTS exam for education, immigration, or visa applications. With the IELTS exam, you will have the opportunity to study or work in the UK, USA, Canada, Australia, New Zealand, and many other countries.
-        </p>
-
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">What Are The Types And Content Of The IELTS Exam?</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
-          The IELTS exam is divided into paper-based and computer-delivered (UKVI-Academic only) versions. The exam types are categorized according to your purpose of taking the exam as follows:
-        </p>
-
-        <div className="flex flex-col gap-6 mb-8">
-          <div>
-            <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
-              IELTS Life Skills (A1, A2 (only applicable in the UK) and B1 levels)
-            </h3>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              IELTS Life Skills is a test that measures only your listening and speaking skills and is often preferred by participants applying for family reunification or immigration. The IELTS Life Skills test can only be used for applications within the UK.
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              Elite Dil Evi&apos;s Online Courses bring the same structured, certified-instructor-led learning experience straight to your screen. Classes are held live over video, so you get real-time interaction, speaking practice, and feedback, not one-way recorded lectures.
             </p>
-          </div>
 
-          <div>
-            <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
-              IELTS (General and Academic)
-            </h3>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              The IELTS exam is a four-section test that proves a participant&apos;s language level according to international standards for education or placement. It is divided into General and Academic sections. IELTS academic exam results are required for your education applications.
+            <div className="flex items-center gap-2 mb-3">
+              <svg className="w-9 h-9 text-[#1B5FAE] shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+              <h2 className="text-2xl font-bold text-[#314A8A]">Online Courses</h2>
+            </div>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              Choose from German, English, and Turkish, each aligned with the CEFR framework from A1 to C2. A short placement test matches you to the right starting level, then you join small and live group classes.
             </p>
-          </div>
 
-          <div>
-            <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
-              IELTS UKVI (General and Academic)
-            </h3>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
-              You can take the IELTS UKVI exam when applying for a visa to study for undergraduate or postgraduate degrees (especially UKVI-Academic if your school specifically states that it requires a UKVI visa), for immigration applications, or if you want to pursue a different type of education other than university studies (UKVI-General).
-            </p>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
-              The UKVI test, which you can take instead of the Life Skills test when applying for a visa or immigration, has four sections, but only the Speaking and Listening sections will be considered in the results.
-            </p>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              IELTS UKVI and IELTS share the same content, exam format, and duration. The most significant difference is that IELTS UKVI is approved by the UK visa and immigration office in its results report, and security measures are enhanced during the exam. Unlike other exams, IELTS UKVI Academic is conducted on a computer, with only the speaking section being face-to-face.
-            </p>
+            <div className="bg-[#E4EDFB] rounded-md p-5 grid sm:grid-cols-3 gap-6 mb-4">
+              {[
+                {
+                  title: "Live, Not Recorded",
+                  desc: "Real instructors, real-time interaction every session.",
+                  icon: "M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z",
+                },
+                {
+                  title: "Flexible Scheduling",
+                  desc: "Morning, evening, and weekend class options.",
+                  icon: "M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+                },
+                {
+                  title: "4-5 Students Per Class",
+                  desc: "Small online groups keep everyone speaking.",
+                  icon: "M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0zM6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75",
+                },
+              ].map((r) => (
+                <div key={r.title} className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5 text-[#1B5FAE]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d={r.icon} />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#0E1E4A] text-base mb-1">{r.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{r.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">Institutions That Accept IELTS And Its Validity Period</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
-          IELTS is recognized in approximately 140 countries and by nearly 10,000 institutions, and the test is valid for 2 years.
-        </p>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          IELTS is recognized by over 10,000 universities and employers worldwide. It is also accepted by professional organizations, relevant immigration authorities, and other government agencies. You can find information on which organizations in Turkey and around the world accept IELTS, along with minimum acceptance scores.
-        </p>
-
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">IELTS Preparation Program</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          Our IELTS preparation courses offer separate study programs for each section of the exam. The tips provided by our experienced instructors for each section are of great benefit in your exam preparation.
-        </p>
-
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">IELTS Course One-on-One Training Program</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
-          Our one-on-one training programs are completely customized to the individual needs of the participant and the areas where they feel they need improvement. Before starting the one-on-one training program, after a level assessment and needs analysis, your target IELTS score and the score you might achieve during the level assessment will be used to calculate how many hours of lessons you will need, and your plan will be made accordingly. Lesson days and times are also determined entirely according to your and the instructor&apos;s availability, providing you with flexibility in terms of days and times.
-        </p>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          The goal of this training program is to help you reach higher scores 5.5 and more using the technical tips provided in class and the extra support given by our instructors to help you outside the class.
-        </p>
-
-        <div className="bg-[#F7FAFF] rounded-md py-6 pr-6">
-          <p className="text-[#0E1E4A] text-base sm:text-lg">
-            For pricing and other information regarding our one-on-one training programs, please contact us via WhatsApp{" "}
-            <a
-              href="https://wa.me/905444067222"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#1B5FAE] font-bold hover:underline"
-            >
-              +90 544 406 72 22
-            </a>
-            .
-          </p>
-        </div>
+      {/* Features bar */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+          <div className="hidden lg:block" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border border-gray-200 rounded-md shadow-sm px-6 py-4 md:divide-x md:divide-gray-200">
+            {features.map((f) => (
+              <div key={f.title} className="flex items-start gap-3 px-2">
+                <svg className="w-7 h-7 text-[#1B5FAE] shrink-0" fill="none" stroke="currentColor" strokeWidth={1.3} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
+                </svg>
+                <div>
+                  <p className="font-bold text-[#0E1E4A] text-sm sm:text-base">{f.title}</p>
+                  <p className="text-gray-400 text-sm leading-snug">{f.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Information Form */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-8 pb-16">
+      <section id="information-form" className="max-w-7xl mx-auto px-6 sm:px-10 pt-8 pb-16">
         <div className="grid lg:grid-cols-[320px_1fr] gap-6 items-stretch">
           {/* Help Panel */}
           <div className="relative overflow-hidden rounded-md bg-[#0B1B4D] p-8 flex flex-col">
@@ -403,8 +402,9 @@ export default function IELTSPage() {
                   value={category}
                   onChange={setCategory}
                   options={[
-                    { value: "one-on-one", label: "One-on-One IELTS Preparation" },
-                    { value: "ukvi", label: "IELTS UKVI Preparation" },
+                    { value: "german", label: "Online German Course" },
+                    { value: "english", label: "Online English Course" },
+                    { value: "turkish", label: "Online Turkish Course" },
                   ]}
                 />
               </div>

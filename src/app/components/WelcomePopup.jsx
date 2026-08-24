@@ -36,11 +36,11 @@ export default function WelcomePopup({ onClose }) {
         </button>
 
         <Image
-          src="/logo.jpeg"
+          src="/mainlogo.png"
           alt="Elite Dil Evi"
-          width={64}
-          height={64}
-          className="mx-auto mb-2"
+          width={296}
+          height={100}
+          className="h-12 w-auto mx-auto mb-2"
         />
 
         <h3 className="text-xl font-medium text-[#0E1E4A]">Welcome to Elite Dil Evi</h3>

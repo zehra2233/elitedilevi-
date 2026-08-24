@@ -154,8 +154,8 @@ export default function GermanCoursePage() {
 
       {/* Hero */}
       <section className="relative h-auto lg:h-[420px] overflow-hidden bg-white">
-        <div className="flex flex-col-reverse lg:flex-row">
-          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 py-14 lg:py-0 flex flex-col justify-center overflow-hidden">
+        <div className="flex flex-col lg:flex-row">
+          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 pt-8 pb-10 sm:pt-10 sm:pb-12 lg:py-0 flex flex-col justify-center overflow-hidden">
             <div className="animate-slide-in-right">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-3 lg:whitespace-nowrap">
                 Learn German With<br />

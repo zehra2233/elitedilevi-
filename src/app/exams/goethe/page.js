@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import CustomSelect from "../../components/CustomSelect";
 
 const otherPages = [
   { label: "English (Adults)", href: "/courses/english/adults" },
@@ -128,6 +132,8 @@ function ChevronDown() {
 }
 
 export default function GoethePage() {
+  const [category, setCategory] = useState("");
+
   return (
     <main>
       <Header />
@@ -135,7 +141,7 @@ export default function GoethePage() {
       {/* Hero */}
       <section className="relative h-auto lg:h-[300px] overflow-hidden bg-white">
         <div className="flex flex-col-reverse lg:flex-row">
-          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 py-14 lg:py-0 flex flex-col justify-center overflow-hidden">
+          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 pt-6 pb-4 sm:pt-8 sm:pb-6 lg:py-0 flex flex-col justify-center overflow-hidden">
             <div className="animate-slide-in-right mt-6">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-3">
                 Goethe-Zertifikat Preparation
@@ -178,7 +184,7 @@ export default function GoethePage() {
       </section>
 
       {/* Goethe Course Details */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-16 lg:-translate-x-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-0 pb-16 sm:pt-4 lg:pt-16 lg:-translate-x-8">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
           {/* Sidebar */}
           <aside className="w-full flex flex-col gap-6 order-2 lg:order-1">
@@ -413,13 +419,13 @@ export default function GoethePage() {
                 <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
                   Category you would like information about <span className="text-red-500">*</span>
                 </label>
-                <div className="relative">
-                  <select className={selectFieldClass} defaultValue="">
-                    <option value="" disabled>Please select</option>
-                    <option value="one-on-one">One-on-One Goethe-Zertifikat Preparation</option>
-                  </select>
-                  <ChevronDown />
-                </div>
+                <CustomSelect
+                  value={category}
+                  onChange={setCategory}
+                  options={[
+                    { value: "one-on-one", label: "One-on-One Goethe-Zertifikat Preparation" },
+                  ]}
+                />
               </div>
 
               <div className="flex justify-end">

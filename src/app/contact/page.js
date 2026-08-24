@@ -41,17 +41,13 @@ export default function ContactPage() {
           sizes="100vw"
         />
         <div className="relative max-w-3xl px-6 sm:px-10 md:pl-16 lg:pl-24 text-center md:text-left">
-          <p className="text-xs font-bold tracking-[0.25em] text-[#1B5FAE] mb-3">
+          <p className="text-base sm:text-lg text-[#1B5FAE] mb-3">
             GET IN TOUCH
           </p>
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0E1E4A] mb-4"
-            style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-          >
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-4">
             Contact Us
           </h1>
-          <div className="h-[3px] w-16 bg-[#D9A441] rounded-full mb-5 mx-auto md:mx-0" />
-          <p className="text-gray-600 max-w-md mx-auto md:mx-0">
+          <p className="text-sm sm:text-base text-[#314A8A] max-w-md mx-auto md:mx-0">
             We&apos;re here to help you every step of the way. Reach out to us
             for any inquiries or support.
           </p>

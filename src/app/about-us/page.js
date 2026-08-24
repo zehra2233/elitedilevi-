@@ -115,7 +115,7 @@ export default function AboutUsPage() {
       {/* Hero */}
       <section className="relative h-auto lg:h-[420px] overflow-hidden bg-white">
         <div className="flex flex-col lg:flex-row">
-          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 py-14 lg:py-0 flex flex-col justify-center overflow-hidden">
+          <div className="relative z-10 w-full lg:w-[600px] shrink-0 bg-white px-6 sm:px-10 md:pl-16 lg:pl-32 pt-8 pb-10 sm:pt-10 sm:pb-12 lg:py-0 flex flex-col justify-center overflow-hidden">
             <div className="animate-slide-in-right">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-3">
                 About Elite Dil Evi
@@ -167,7 +167,7 @@ export default function AboutUsPage() {
 
       {/* Intro */}
       <section className="bg-white pt-16 pb-6">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 grid lg:grid-cols-2 gap-2 sm:gap-10 lg:gap-16 items-center">
           {/* LEFT: copy */}
           <div>
             <div className="flex items-center gap-3 mb-5">
@@ -236,7 +236,7 @@ export default function AboutUsPage() {
                 alt="Elite Dil Evi Students"
                 width={800}
                 height={600}
-                className="w-full h-[520px] object-cover"
+                className="w-full h-64 sm:h-80 md:h-[420px] lg:h-[520px] object-cover"
               />
             </div>
 
@@ -264,11 +264,11 @@ export default function AboutUsPage() {
       </section>
 
       {/* Who We Are */}
-      <section id="who-we-are" className="bg-[#F5F7FA] py-10 sm:py-14">
+      <section id="who-we-are" className="bg-[#F5F7FA] pt-24 pb-10 sm:pt-28 sm:pb-14">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <div className="grid lg:grid-cols-2 gap-10">
               {/* LEFT: graphic composition */}
-              <div className="relative max-w-md mx-auto lg:mx-0 lg:ml-10 pb-10 pt-20">
+              <div className="order-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:row-span-2 relative w-full max-w-md mx-auto lg:mx-0 lg:ml-10 pb-10 pt-0 lg:pt-20 -mt-6 lg:mt-0">
                 <div className="relative aspect-[3/2] rounded-md overflow-hidden shadow-xl">
                   <Image
                     src="/englishland.png"
@@ -278,7 +278,7 @@ export default function AboutUsPage() {
                   />
                 </div>
 
-                <div className="absolute z-10 top-6 -right-8 sm:-right-10 w-32 h-32 rounded-full overflow-hidden bg-white shadow-lg flex items-center justify-center">
+                <div className="absolute z-10 top-2 right-0 sm:-right-8 lg:top-6 lg:-right-10 w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-white shadow-lg flex items-center justify-center">
                   <Image
                     src="/other-centerr.jpeg"
                     alt="English Land Institute"
@@ -289,22 +289,25 @@ export default function AboutUsPage() {
                 </div>
               </div>
 
-              {/* RIGHT: copy */}
-              <div>
+              {/* RIGHT: intro copy */}
+              <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1">
                 <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#1B5FAE] mb-2">
                   Our Second Educational Center
                 </p>
                 <h2 className="text-2xl sm:text-3xl font-bold text-[#314A8A] mb-3 leading-tight">
                   English Land Institute
                 </h2>
-                <p className="text-[#314A8A] text-[17px] leading-relaxed mb-5">
+                <p className="text-[#314A8A] text-[17px] leading-relaxed mb-5 lg:mb-0">
                   English Land Institute is our second educational center,
                   established with the same commitment to quality language
                   education and student success. Together with Elite Dil Evi,
                   we provide modern language training, experienced
                   instructors, and student-centered learning environments.
                 </p>
+              </div>
 
+              {/* RIGHT: partnership offers */}
+              <div className="order-3 lg:order-none lg:col-start-2 lg:row-start-2 lg:self-end -mt-12 lg:mt-0">
                 <p className="font-bold text-[#314A8A] text-[17px] mb-3">
                   What our partnership offers:
                 </p>
