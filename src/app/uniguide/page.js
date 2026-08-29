@@ -62,7 +62,7 @@ const studyDestinations = [
   { code: "IT", name: "Italy", image: "/italy.png" },
   { code: "HU", name: "Hungary", image: "/Hungary.png" },
   { code: "LT", name: "Lithuania", image: "/lithuania.png" },
-  { code: "RO", name: "Romania", image: "/Romania.png" },
+  { code: "RO", name: "Romania", image: "/romania.png" },
   { code: "PL", name: "Poland", image: "/poland.png" },
   { code: "MY", name: "Malaysia", image: "/malasiya.png" },
 ];
