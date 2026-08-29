@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CustomSelect from "../../components/CustomSelect";
+import { API_BASE_URL } from "../../../lib/api";
 
 const otherPages = [
   { label: "English (Adults)", href: "/courses/english/adults" },
@@ -133,6 +134,54 @@ function ChevronDown() {
 
 export default function IELTSPage() {
   const [category, setCategory] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneCountry, setPhoneCountry] = useState("Turkey-+90");
+  const [phone, setPhone] = useState("");
+
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const categoryLabels = {
+    "one-on-one": "One-on-One IELTS Preparation",
+    "ukvi": "IELTS UKVI Preparation",
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    const dialCode = phoneCountry.split("-").pop();
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/inquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          email: email,
+          phone_country_code: dialCode,
+          phone: phone,
+          category: categoryLabels[category] || category,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Something went wrong");
+      }
+
+      setStatus("success");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setCategory("");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err.message);
+    }
+  };
 
   return (
     <main>
@@ -209,90 +258,90 @@ export default function IELTSPage() {
 
           {/* Main content */}
           <div className="order-1 lg:order-2">
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          Our IELTS course is entirely focused on preparing for the IELTS exam and is designed with Test Skills, Reading, Writing, and Listening programs. All IELTS lessons are taught by experienced instructors with Cambridge CELTA certifications. Our preparation programs, offered by our experienced academic staff, are divided into two categories: one-on-one and group training. You can find the content of our training and detailed information below.
-        </p>
-
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">What is the IELTS exam?</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          IELTS is a globally recognized language proficiency test that provides fast and reliable results based on established standards accepted by over 10,000 institutions in approximately 140 countries. Participants can take the IELTS exam for education, immigration, or visa applications. With the IELTS exam, you will have the opportunity to study or work in the UK, USA, Canada, Australia, New Zealand, and many other countries.
-        </p>
-
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">What Are The Types And Content Of The IELTS Exam?</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
-          The IELTS exam is divided into paper-based and computer-delivered (UKVI-Academic only) versions. The exam types are categorized according to your purpose of taking the exam as follows:
-        </p>
-
-        <div className="flex flex-col gap-6 mb-8">
-          <div>
-            <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
-              IELTS Life Skills (A1, A2 (only applicable in the UK) and B1 levels)
-            </h3>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              IELTS Life Skills is a test that measures only your listening and speaking skills and is often preferred by participants applying for family reunification or immigration. The IELTS Life Skills test can only be used for applications within the UK.
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              Our IELTS course is entirely focused on preparing for the IELTS exam and is designed with Test Skills, Reading, Writing, and Listening programs. All IELTS lessons are taught by experienced instructors with Cambridge CELTA certifications. Our preparation programs, offered by our experienced academic staff, are divided into two categories: one-on-one and group training. You can find the content of our training and detailed information below.
             </p>
-          </div>
 
-          <div>
-            <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
-              IELTS (General and Academic)
-            </h3>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              The IELTS exam is a four-section test that proves a participant&apos;s language level according to international standards for education or placement. It is divided into General and Academic sections. IELTS academic exam results are required for your education applications.
+            <h2 className="text-2xl font-bold text-[#314A8A] mb-3">What is the IELTS exam?</h2>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              IELTS is a globally recognized language proficiency test that provides fast and reliable results based on established standards accepted by over 10,000 institutions in approximately 140 countries. Participants can take the IELTS exam for education, immigration, or visa applications. With the IELTS exam, you will have the opportunity to study or work in the UK, USA, Canada, Australia, New Zealand, and many other countries.
             </p>
-          </div>
 
-          <div>
-            <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
-              IELTS UKVI (General and Academic)
-            </h3>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
-              You can take the IELTS UKVI exam when applying for a visa to study for undergraduate or postgraduate degrees (especially UKVI-Academic if your school specifically states that it requires a UKVI visa), for immigration applications, or if you want to pursue a different type of education other than university studies (UKVI-General).
+            <h2 className="text-2xl font-bold text-[#314A8A] mb-3">What Are The Types And Content Of The IELTS Exam?</h2>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
+              The IELTS exam is divided into paper-based and computer-delivered (UKVI-Academic only) versions. The exam types are categorized according to your purpose of taking the exam as follows:
             </p>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
-              The UKVI test, which you can take instead of the Life Skills test when applying for a visa or immigration, has four sections, but only the Speaking and Listening sections will be considered in the results.
+
+            <div className="flex flex-col gap-6 mb-8">
+              <div>
+                <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
+                  IELTS Life Skills (A1, A2 (only applicable in the UK) and B1 levels)
+                </h3>
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                  IELTS Life Skills is a test that measures only your listening and speaking skills and is often preferred by participants applying for family reunification or immigration. The IELTS Life Skills test can only be used for applications within the UK.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
+                  IELTS (General and Academic)
+                </h3>
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                  The IELTS exam is a four-section test that proves a participant&apos;s language level according to international standards for education or placement. It is divided into General and Academic sections. IELTS academic exam results are required for your education applications.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-[#314A8A] text-2xl mb-1.5">
+                  IELTS UKVI (General and Academic)
+                </h3>
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
+                  You can take the IELTS UKVI exam when applying for a visa to study for undergraduate or postgraduate degrees (especially UKVI-Academic if your school specifically states that it requires a UKVI visa), for immigration applications, or if you want to pursue a different type of education other than university studies (UKVI-General).
+                </p>
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-3">
+                  The UKVI test, which you can take instead of the Life Skills test when applying for a visa or immigration, has four sections, but only the Speaking and Listening sections will be considered in the results.
+                </p>
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                  IELTS UKVI and IELTS share the same content, exam format, and duration. The most significant difference is that IELTS UKVI is approved by the UK visa and immigration office in its results report, and security measures are enhanced during the exam. Unlike other exams, IELTS UKVI Academic is conducted on a computer, with only the speaking section being face-to-face.
+                </p>
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-[#314A8A] mb-3">Institutions That Accept IELTS And Its Validity Period</h2>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
+              IELTS is recognized in approximately 140 countries and by nearly 10,000 institutions, and the test is valid for 2 years.
             </p>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              IELTS UKVI and IELTS share the same content, exam format, and duration. The most significant difference is that IELTS UKVI is approved by the UK visa and immigration office in its results report, and security measures are enhanced during the exam. Unlike other exams, IELTS UKVI Academic is conducted on a computer, with only the speaking section being face-to-face.
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              IELTS is recognized by over 10,000 universities and employers worldwide. It is also accepted by professional organizations, relevant immigration authorities, and other government agencies. You can find information on which organizations in Turkey and around the world accept IELTS, along with minimum acceptance scores.
             </p>
-          </div>
-        </div>
 
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">Institutions That Accept IELTS And Its Validity Period</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
-          IELTS is recognized in approximately 140 countries and by nearly 10,000 institutions, and the test is valid for 2 years.
-        </p>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          IELTS is recognized by over 10,000 universities and employers worldwide. It is also accepted by professional organizations, relevant immigration authorities, and other government agencies. You can find information on which organizations in Turkey and around the world accept IELTS, along with minimum acceptance scores.
-        </p>
+            <h2 className="text-2xl font-bold text-[#314A8A] mb-3">IELTS Preparation Program</h2>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              Our IELTS preparation courses offer separate study programs for each section of the exam. The tips provided by our experienced instructors for each section are of great benefit in your exam preparation.
+            </p>
 
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">IELTS Preparation Program</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          Our IELTS preparation courses offer separate study programs for each section of the exam. The tips provided by our experienced instructors for each section are of great benefit in your exam preparation.
-        </p>
+            <h2 className="text-2xl font-bold text-[#314A8A] mb-3">IELTS Course One-on-One Training Program</h2>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
+              Our one-on-one training programs are completely customized to the individual needs of the participant and the areas where they feel they need improvement. Before starting the one-on-one training program, after a level assessment and needs analysis, your target IELTS score and the score you might achieve during the level assessment will be used to calculate how many hours of lessons you will need, and your plan will be made accordingly. Lesson days and times are also determined entirely according to your and the instructor&apos;s availability, providing you with flexibility in terms of days and times.
+            </p>
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+              The goal of this training program is to help you reach higher scores 5.5 and more using the technical tips provided in class and the extra support given by our instructors to help you outside the class.
+            </p>
 
-        <h2 className="text-2xl font-bold text-[#314A8A] mb-3">IELTS Course One-on-One Training Program</h2>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
-          Our one-on-one training programs are completely customized to the individual needs of the participant and the areas where they feel they need improvement. Before starting the one-on-one training program, after a level assessment and needs analysis, your target IELTS score and the score you might achieve during the level assessment will be used to calculate how many hours of lessons you will need, and your plan will be made accordingly. Lesson days and times are also determined entirely according to your and the instructor&apos;s availability, providing you with flexibility in terms of days and times.
-        </p>
-        <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-          The goal of this training program is to help you reach higher scores 5.5 and more using the technical tips provided in class and the extra support given by our instructors to help you outside the class.
-        </p>
-
-        <div className="bg-[#F7FAFF] rounded-md py-6 pr-6">
-          <p className="text-[#0E1E4A] text-base sm:text-lg">
-            For pricing and other information regarding our one-on-one training programs, please contact us via WhatsApp{" "}
-            <a
-              href="https://wa.me/905444067222"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#1B5FAE] font-bold hover:underline"
-            >
-              +90 544 406 72 22
-            </a>
-            .
-          </p>
-        </div>
+            <div className="bg-[#F7FAFF] rounded-md py-6 pr-6">
+              <p className="text-[#0E1E4A] text-base sm:text-lg">
+                For pricing and other information regarding our one-on-one training programs, please contact us via WhatsApp{" "}
+                <a
+                  href="https://wa.me/905444067222"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#1B5FAE] font-bold hover:underline"
+                >
+                  +90 544 406 72 22
+                </a>
+                .
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -350,14 +399,17 @@ export default function IELTSPage() {
             <h2 className="text-xl font-bold text-[#314A8A] mb-1">Information Form</h2>
             <div className="h-[3px] w-10 bg-[#D9A441] rounded-full mb-6" />
 
-            <form className="flex flex-col gap-5">
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   placeholder="Enter your name"
+                  required
                   className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                 />
               </div>
@@ -369,6 +421,8 @@ export default function IELTSPage() {
                   </label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Please enter your email"
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
@@ -377,7 +431,11 @@ export default function IELTSPage() {
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Telephone <span className="text-red-500">*</span></label>
                   <div className="flex gap-2">
                     <div className="relative shrink-0 flex items-center">
-                      <select className={`${selectFieldClass} w-24`} defaultValue="Turkey-+90">
+                      <select
+                        className={`${selectFieldClass} w-24`}
+                        value={phoneCountry}
+                        onChange={(e) => setPhoneCountry(e.target.value)}
+                      >
                         {countryCodes.map((c) => (
                           <option key={`${c.name}-${c.code}`} value={`${c.name}-${c.code}`}>
                             {c.code}
@@ -388,7 +446,10 @@ export default function IELTSPage() {
                     </div>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       placeholder="501 234 56 78"
+                      required
                       className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                     />
                   </div>
@@ -412,14 +473,27 @@ export default function IELTSPage() {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-bold text-sm px-6 py-2.5 rounded-md hover:bg-[#0E4396] transition"
+                  disabled={status === "sending"}
+                  className="inline-flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-bold text-sm px-6 py-2.5 rounded-md hover:bg-[#0E4396] transition disabled:opacity-60"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                   </svg>
-                  Send Request
+                  {status === "sending" ? "Sending..." : "Send Request"}
                 </button>
               </div>
+
+              {status === "success" && (
+                <p className="text-center text-sm text-green-600 font-medium">
+                  Thank you! Your request has been received. We&apos;ll be in touch soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-center text-sm text-red-600 font-medium">
+                  {errorMessage || "Something went wrong. Please try again."}
+                </p>
+              )}
+
               <p className="text-center text-xs text-gray-400">
                 Your information is safe with us. We will never share your data.
               </p>

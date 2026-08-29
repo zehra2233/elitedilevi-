@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { API_BASE_URL } from "../../lib/api";
 
 function useScrollReveal() {
   const ref = useRef(null);
@@ -107,6 +108,77 @@ export default function AboutUsPage() {
   const [offeringsRef, offeringsVisible] = useScrollReveal();
   const [statsRef, statsVisible] = useScrollReveal();
   const [partnershipRef, partnershipVisible] = useScrollReveal();
+
+  const [applicantName, setApplicantName] = useState("");
+  const [applicantEmail, setApplicantEmail] = useState("");
+  const [applicantPhone, setApplicantPhone] = useState("");
+  const [applicantPosition, setApplicantPosition] = useState("");
+  const [applicantMessage, setApplicantMessage] = useState("");
+  const [cvFile, setCvFile] = useState(null);
+  const [fileError, setFileError] = useState("");
+  const [applyStatus, setApplyStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [applyErrorMessage, setApplyErrorMessage] = useState("");
+
+  const handleCvChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setCvFile(null);
+      return;
+    }
+    if (file.type !== "application/pdf") {
+      setFileError("Please upload a PDF file.");
+      setCvFile(null);
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setFileError("File must be smaller than 5MB.");
+      setCvFile(null);
+      return;
+    }
+    setFileError("");
+    setCvFile(file);
+  };
+
+  const handleApplySubmit = async (e) => {
+    e.preventDefault();
+    if (!cvFile) {
+      setFileError("Please attach your CV as a PDF.");
+      return;
+    }
+    setApplyStatus("sending");
+    setApplyErrorMessage("");
+
+    const formData = new FormData();
+    formData.append("full_name", applicantName);
+    formData.append("email", applicantEmail);
+    formData.append("phone", applicantPhone);
+    formData.append("position", applicantPosition);
+    formData.append("message", applicantMessage);
+    formData.append("cv", cvFile);
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/job-applications`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Something went wrong");
+      }
+
+      setApplyStatus("success");
+      setApplicantName("");
+      setApplicantEmail("");
+      setApplicantPhone("");
+      setApplicantPosition("");
+      setApplicantMessage("");
+      setCvFile(null);
+    } catch (err) {
+      setApplyStatus("error");
+      setApplyErrorMessage(err.message);
+    }
+  };
 
   return (
     <main>
@@ -473,6 +545,210 @@ export default function AboutUsPage() {
         </div>
       </section>
 
+      {/* Careers / Apply for a Job */}
+      <section id="careers" className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-12 sm:py-16">
+        <div className="relative">
+          <div className="absolute left-1/2 -translate-x-1/2 -top-3 w-[85%] h-5 bg-black/25 blur-2xl rounded-full" />
+          <div className="absolute left-1/2 -translate-x-1/2 -bottom-3 w-[85%] h-5 bg-black/25 blur-2xl rounded-full" />
+
+        <div className="relative rounded-2xl bg-white shadow-xl px-5 sm:px-8 md:px-10 py-8 sm:py-10 grid lg:grid-cols-2 gap-8 lg:gap-10">
+          {/* LEFT: intro */}
+          <div>
+            <p className="text-xs font-bold tracking-wider uppercase text-gray-500 mb-3">
+              Careers at <span className="text-[#1B5FAE]">Elite Dil Evi</span>
+            </p>
+
+            <div className="flex items-start gap-4 mb-5">
+              <div className="w-12 h-12 rounded-full bg-[#EEF2FB] flex items-center justify-center shrink-0">
+                <svg className="w-6 h-6 text-[#314A8A]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#1B2A4A]">Join Our Team</h2>
+                <div className="w-10 h-1 bg-[#1B5FAE] rounded-full mt-2" />
+              </div>
+            </div>
+
+            <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-md">
+              We are always looking for passionate and talented individuals to
+              grow with us. Send us your CV and we&apos;ll get in touch if there&apos;s a fit.
+            </p>
+
+            <div className="space-y-5">
+              {[
+                {
+                  title: "Great Work Environment",
+                  desc: "Be part of a supportive and friendly team.",
+                  icon: "M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z",
+                },
+                {
+                  title: "Grow Your Career",
+                  desc: "Opportunities to learn, grow and advance.",
+                  icon: "M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 015.814-5.518l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941",
+                },
+                {
+                  title: "Make an Impact",
+                  desc: "Your work will make a real difference.",
+                  icon: "M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.75h-.152c-3.196 0-6.1-1.248-8.25-3.286z",
+                },
+              ].map((item) => (
+                <div key={item.title} className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-full bg-[#EEF2FB] flex items-center justify-center shrink-0">
+                    <svg className="w-[18px] h-[18px] text-[#1B5FAE]" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#1B2A4A] text-sm">{item.title}</p>
+                    <p className="text-gray-500 text-xs">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT: form */}
+          <div>
+            <h3 className="text-xl font-bold text-[#1B2A4A] mb-1">Apply Now</h3>
+            <p className="text-gray-500 text-sm mb-6">Fill in your details and upload your CV.</p>
+
+            <form onSubmit={handleApplySubmit} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="relative">
+                  <svg className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                  <input
+                    type="text"
+                    value={applicantName}
+                    onChange={(e) => setApplicantName(e.target.value)}
+                    placeholder="Full Name"
+                    required
+                    className="w-full bg-white border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm text-[#1B2A4A] placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
+                  />
+                </div>
+                <div className="relative">
+                  <svg className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                  </svg>
+                  <input
+                    type="email"
+                    value={applicantEmail}
+                    onChange={(e) => setApplicantEmail(e.target.value)}
+                    placeholder="Email Address"
+                    required
+                    className="w-full bg-white border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm text-[#1B2A4A] placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
+                  />
+                </div>
+              </div>
+
+              <div className="relative">
+                <svg className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                </svg>
+                <input
+                  type="tel"
+                  value={applicantPhone}
+                  onChange={(e) => setApplicantPhone(e.target.value)}
+                  placeholder="Phone Number"
+                  className="w-full bg-white border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm text-[#1B2A4A] placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
+                />
+              </div>
+
+              <div className="relative">
+                <svg className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0" />
+                </svg>
+                <select
+                  value={applicantPosition}
+                  onChange={(e) => setApplicantPosition(e.target.value)}
+                  className="w-full appearance-none bg-white border border-gray-200 rounded-lg pl-10 pr-10 py-3 text-sm text-[#1B2A4A] focus:outline-none focus:border-[#1B5FAE] transition"
+                >
+                  <option value="">Position You&apos;re Applying For</option>
+                  <option value="German Language Instructor">German Language Instructor</option>
+                  <option value="English Language Instructor">English Language Instructor</option>
+                  <option value="Turkish Language Instructor">Turkish Language Instructor</option>
+                  <option value="Other">Other</option>
+                </select>
+                <svg className="w-4 h-4 text-gray-400 absolute right-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
+
+              <div className="relative">
+                <svg className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+                </svg>
+                <textarea
+                  value={applicantMessage}
+                  onChange={(e) => setApplicantMessage(e.target.value)}
+                  placeholder="Write a short message (optional)"
+                  rows={3}
+                  className="w-full bg-white border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm text-[#1B2A4A] placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition resize-none"
+                />
+              </div>
+
+              <label
+                htmlFor="cv-upload"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-dashed border-gray-300 rounded-lg px-4 py-4 cursor-pointer hover:border-[#1B5FAE] transition"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-full bg-[#EEF2FB] flex items-center justify-center shrink-0">
+                    <svg className="w-[18px] h-[18px] text-[#1B5FAE]" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l-3.75 3.75M12 9.75l3.75 3.75M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-[#1B2A4A]">Upload Your CV (PDF)</p>
+                    <p className="text-xs text-gray-400 truncate">
+                      {cvFile ? cvFile.name : "Click to upload or drag & drop your file here"}
+                    </p>
+                  </div>
+                </div>
+                <span className="self-start sm:self-auto shrink-0 text-sm font-semibold text-[#1B5FAE] border border-[#1B5FAE]/40 rounded-md px-4 py-2 hover:bg-[#EEF2FB] transition">
+                  Browse
+                </span>
+                <input
+                  id="cv-upload"
+                  type="file"
+                  accept=".pdf,application/pdf"
+                  onChange={handleCvChange}
+                  className="hidden"
+                />
+              </label>
+
+              <button
+                type="submit"
+                disabled={applyStatus === "sending"}
+                className="w-full flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-semibold py-3.5 rounded-lg hover:bg-[#0E4396] transition disabled:opacity-60"
+              >
+                {applyStatus === "sending" ? "Sending..." : "Send Application"}
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+              </button>
+
+              {(fileError || applyStatus === "success" || applyStatus === "error") && (
+                <div className="text-center">
+                  {fileError && <p className="text-sm text-red-500">{fileError}</p>}
+                  {applyStatus === "success" && (
+                    <p className="text-sm text-emerald-600 font-medium">
+                      Thank you! Your application has been received. We&apos;ll be in touch soon.
+                    </p>
+                  )}
+                  {applyStatus === "error" && (
+                    <p className="text-sm text-red-500 font-medium">
+                      {applyErrorMessage || "Something went wrong. Please try again."}
+                    </p>
+                  )}
+                </div>
+              )}
+            </form>
+          </div>
+        </div>
+        </div>
+      </section>
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-10 pb-8">
         <div className="bg-gradient-to-b from-[#EAF3FF] to-white rounded-3xl px-10 py-14 flex flex-col items-center text-center gap-6">

@@ -1,9 +1,48 @@
 "use client";
 
 import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import Select from "react-select";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import CustomSelect from "../components/CustomSelect";
+import { API_BASE_URL } from "../../lib/api";
+
+const selectStyles = {
+  control: (base, state) => ({
+    ...base,
+    minHeight: "46px",
+    borderRadius: "0.375rem",
+    borderColor: state.isFocused ? "#1B5FAE" : "#e5e7eb",
+    boxShadow: "none",
+    "&:hover": { borderColor: state.isFocused ? "#1B5FAE" : "#e5e7eb" },
+  }),
+  valueContainer: (base) => ({ ...base, padding: "2px 14px" }),
+  placeholder: (base) => ({ ...base, color: "#9ca3af", fontSize: "0.875rem" }),
+  singleValue: (base) => ({ ...base, color: "#374151", fontSize: "0.875rem" }),
+  input: (base) => ({ ...base, fontSize: "0.875rem", color: "#374151" }),
+  indicatorSeparator: () => ({ display: "none" }),
+  dropdownIndicator: (base) => ({ ...base, color: "#9ca3af", padding: "0 10px" }),
+  menu: (base) => ({
+    ...base,
+    borderRadius: "0.375rem",
+    overflow: "hidden",
+    boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)",
+    zIndex: 30,
+  }),
+  option: (base, state) => ({
+    ...base,
+    fontSize: "0.875rem",
+    padding: "10px 16px",
+    backgroundColor: state.isSelected ? "#f9fafb" : state.isFocused ? "#f9fafb" : "white",
+    color: state.isSelected ? "#1B5FAE" : "#374151",
+    fontWeight: state.isSelected ? 600 : 400,
+  }),
+};
+
+const phoneSelectStyles = {
+  ...selectStyles,
+  valueContainer: (base) => ({ ...base, padding: "2px 8px" }),
+};
 
 const countries = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia",
@@ -103,6 +142,33 @@ const phoneCountries = [
   ["YE", "967", "Yemen"], ["ZM", "260", "Zambia"], ["ZW", "263", "Zimbabwe"],
 ];
 
+const countryOptions = countries.map((c) => ({ value: c, label: c }));
+
+const phoneCountryOptions = phoneCountries.map(([iso2, dial]) => ({
+  value: `${iso2}-${dial}`,
+  label: `${iso2} +${dial}`,
+}));
+
+const courseOptions = [
+  "German Courses",
+  "English (Adults)",
+  "English (Junior)",
+  "Turkish Courses",
+  "Online Courses",
+  "Private Lessons",
+  "Exam Preparation",
+].map((c) => ({ value: c, label: c }));
+
+const levelOptions = [
+  "Beginner (A1)",
+  "Elementary (A2)",
+  "Intermediate (B1)",
+  "Upper-Intermediate (B2)",
+  "Advanced (C1)",
+  "Proficient (C2)",
+  "Not sure yet",
+].map((l) => ({ value: l, label: l }));
+
 const whyItems = [
   {
     title: "Certified Instructors",
@@ -127,39 +193,47 @@ const whyItems = [
 ];
 
 export default function RegistrationPage() {
-  const [course, setCourse] = useState("");
-  const [level, setLevel] = useState("");
-  const [phoneCountry, setPhoneCountry] = useState("TR-90");
-  const [residenceCountry, setResidenceCountry] = useState("");
-
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [notes, setNotes] = useState("");
-
   const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      phoneCountry: phoneCountryOptions.find((o) => o.value === "TR-90"),
+      residenceCountry: null,
+      course: null,
+      level: null,
+      notes: "",
+    },
+  });
+
+  const onSubmit = async (data) => {
     setStatus("sending");
     setErrorMessage("");
 
-    const dialCode = phoneCountry.split("-")[1] || "90";
+    const dialCode = data.phoneCountry?.value?.split("-")[1] || "90";
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/registrations", {
+      const res = await fetch(`${API_BASE_URL}/api/registrations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          full_name: fullName,
-          email: email,
+          full_name: data.fullName,
+          email: data.email,
           phone_country_code: `+${dialCode}`,
-          phone: phone,
-          residence_country: residenceCountry,
-          course: course,
-          level: level,
-          notes: notes,
+          phone: data.phone,
+          residence_country: data.residenceCountry?.value || "",
+          course: data.course?.value || "",
+          level: data.level?.value || "",
+          notes: data.notes,
         }),
       });
 
@@ -169,13 +243,7 @@ export default function RegistrationPage() {
       }
 
       setStatus("success");
-      setFullName("");
-      setEmail("");
-      setPhone("");
-      setResidenceCountry("");
-      setCourse("");
-      setLevel("");
-      setNotes("");
+      reset();
     } catch (err) {
       setStatus("error");
       setErrorMessage(err.message);
@@ -228,25 +296,25 @@ export default function RegistrationPage() {
             </p>
             <div className="h-[3px] w-12 bg-[#D9A441] rounded-full mb-8" />
 
-            <form className="space-y-5" onSubmit={handleSubmit}>
+            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Full Name <span className="text-red-500">*</span></label>
                   <input
                     type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    {...register("fullName", { required: true })}
                     placeholder="Enter your full name"
-                    required
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
+                  {errors.fullName && (
+                    <p className="mt-1 text-xs text-red-500">Full name is required.</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Email Address</label>
                   <input
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    {...register("email")}
                     placeholder="Enter your email address"
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
@@ -256,70 +324,89 @@ export default function RegistrationPage() {
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Phone Number <span className="text-red-500">*</span></label>
                   <div className="flex gap-2">
                     <div className="w-28 shrink-0">
-                      <CustomSelect
-                        value={phoneCountry}
-                        onChange={setPhoneCountry}
-                        options={phoneCountries.map(([iso2, dial]) => ({
-                          value: `${iso2}-${dial}`,
-                          label: `${iso2} +${dial}`,
-                        }))}
+                      <Controller
+                        name="phoneCountry"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            instanceId="phone-country"
+                            options={phoneCountryOptions}
+                            styles={phoneSelectStyles}
+                            isSearchable={false}
+                          />
+                        )}
                       />
                     </div>
                     <input
                       type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      {...register("phone", { required: true })}
                       placeholder="Enter your phone number"
-                      required
                       className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                     />
                   </div>
+                  {errors.phone && (
+                    <p className="mt-1 text-xs text-red-500">Phone number is required.</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Country of Residence</label>
-                  <CustomSelect
-                    value={residenceCountry}
-                    onChange={setResidenceCountry}
-                    placeholder="Select your country"
-                    options={countries.map((c) => ({ value: c, label: c }))}
+                  <Controller
+                    name="residenceCountry"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        instanceId="residence-country"
+                        placeholder="Select your country"
+                        options={countryOptions}
+                        styles={selectStyles}
+                      />
+                    )}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Course <span className="text-red-500">*</span></label>
-                  <CustomSelect
-                    value={course}
-                    onChange={setCourse}
-                    placeholder="Select a course"
-                    options={[
-                      "German Courses",
-                      "English (Adults)",
-                      "English (Junior)",
-                      "Turkish Courses",
-                      "Online Courses",
-                      "Private Lessons",
-                      "Exam Preparation",
-                    ].map((c) => ({ value: c, label: c }))}
+                  <Controller
+                    name="course"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        instanceId="course"
+                        placeholder="Select a course"
+                        options={courseOptions}
+                        styles={selectStyles}
+                      />
+                    )}
                   />
+                  {errors.course && (
+                    <p className="mt-1 text-xs text-red-500">Please select a course.</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
                     Current Level <span className="text-red-500">*</span>
                   </label>
-                  <CustomSelect
-                    value={level}
-                    onChange={setLevel}
-                    placeholder="Select your level"
-                    options={[
-                      "Beginner (A1)",
-                      "Elementary (A2)",
-                      "Intermediate (B1)",
-                      "Upper-Intermediate (B2)",
-                      "Advanced (C1)",
-                      "Proficient (C2)",
-                      "Not sure yet",
-                    ].map((l) => ({ value: l, label: l }))}
+                  <Controller
+                    name="level"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        instanceId="level"
+                        placeholder="Select your level"
+                        options={levelOptions}
+                        styles={selectStyles}
+                      />
+                    )}
                   />
+                  {errors.level && (
+                    <p className="mt-1 text-xs text-red-500">Please select your level.</p>
+                  )}
                 </div>
               </div>
 
@@ -329,8 +416,7 @@ export default function RegistrationPage() {
                 </label>
                 <textarea
                   rows={4}
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
+                  {...register("notes")}
                   placeholder="Tell us more about your goals and how we can help you..."
                   className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition resize-none"
                 />

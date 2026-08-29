@@ -7,10 +7,10 @@ export default function Footer() {
       <div className="px-8 sm:px-12 xl:px-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[220px_1fr_1fr_1fr] gap-8 lg:gap-x-40">
         <div>
           <Image
-            src="/whitelogo.png"
+            src="/footerlogo.png"
             alt="Elite Dil Evi"
-            width={1247}
-            height={1261}
+            width={1402}
+            height={1122}
             className="h-28 w-auto mb-3"
           />
           <p className="text-sm text-white/50 max-w-xs">
@@ -85,6 +85,12 @@ export default function Footer() {
               </svg>
               +90 544 406 72 22
             </li>
+            <li className="flex items-center gap-3">
+              <svg className="w-5 h-5 text-white/50 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+              +90 537 249 18 54
+            </li>
             <li className="flex items-start gap-3">
               <svg className="w-5 h-5 text-white/50 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -102,14 +108,10 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="px-8 sm:px-12 xl:px-20 mt-6 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="px-8 sm:px-12 xl:px-20 mt-6 pt-4 border-t border-white/10 flex items-center justify-center">
         <p className="text-sm text-white/40">
           © {new Date().getFullYear()} Elite Dil Evi. All rights reserved. İstanbul, Turkey.
         </p>
-        <div className="flex items-center gap-6 text-sm text-white/40">
-          <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
-          <Link href="/terms" className="hover:text-white transition">Terms of Service</Link>
-        </div>
       </div>
     </footer>
   );

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CustomSelect from "../components/CustomSelect";
+import { API_BASE_URL } from "../../lib/api";
 
 const countries = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia",
@@ -151,7 +152,7 @@ export default function ConsultationPage() {
     const dialCode = phoneCountry.split("-")[1] || "90";
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/consultations", {
+      const res = await fetch(`${API_BASE_URL}/api/consultations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

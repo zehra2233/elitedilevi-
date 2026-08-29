@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CustomSelect from "../components/CustomSelect";
+import { API_BASE_URL } from "../../lib/api";
 
 function useScrollReveal() {
   const ref = useRef(null);
@@ -210,6 +211,53 @@ export default function UniGuidePage() {
   const [formRef, formVisible] = useScrollReveal();
   const [studyCountry, setStudyCountry] = useState("");
 
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneCountry, setPhoneCountry] = useState("Turkey-+90");
+  const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
+
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    const dialCode = phoneCountry.split("-").pop();
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/consultations`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          email: email,
+          phone_country_code: dialCode,
+          phone: phone,
+          study_country: studyCountry,
+          notes: notes,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Something went wrong");
+      }
+
+      setStatus("success");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setStudyCountry("");
+      setNotes("");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err.message);
+    }
+  };
+
   return (
     <main>
       <Header />
@@ -393,13 +441,16 @@ export default function UniGuidePage() {
             </p>
             <div className="h-[3px] w-12 bg-[#D9A441] rounded-full mb-8" />
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Full Name <span className="text-red-500">*</span></label>
                   <input
                     type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
+                    required
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
                 </div>
@@ -407,7 +458,10 @@ export default function UniGuidePage() {
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Email Address <span className="text-red-500">*</span></label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
+                    required
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
                 </div>
@@ -416,7 +470,11 @@ export default function UniGuidePage() {
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Phone Number <span className="text-red-500">*</span></label>
                   <div className="flex gap-2">
                     <div className="relative shrink-0">
-                      <select className={`${selectFieldClass} w-24`} defaultValue="Turkey-+90">
+                      <select
+                        className={`${selectFieldClass} w-24`}
+                        value={phoneCountry}
+                        onChange={(e) => setPhoneCountry(e.target.value)}
+                      >
                         {countryCodes.map((c) => (
                           <option key={`${c.name}-${c.code}`} value={`${c.name}-${c.code}`}>
                             {c.code}
@@ -427,7 +485,10 @@ export default function UniGuidePage() {
                     </div>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       placeholder="Enter your phone number"
+                      required
                       className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                     />
                   </div>
@@ -449,6 +510,8 @@ export default function UniGuidePage() {
                 </label>
                 <textarea
                   rows={4}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
                   placeholder="Tell us more about your goals and how we can help you..."
                   className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition resize-none"
                 />
@@ -456,19 +519,31 @@ export default function UniGuidePage() {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#E0A93B] to-[#C6862A] text-white font-bold py-3.5 rounded-md hover:opacity-90 transition"
+                disabled={status === "sending"}
+                className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#E0A93B] to-[#C6862A] text-white font-bold py-3.5 rounded-md hover:opacity-90 transition disabled:opacity-60"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
-                Book My Free Consultation
+                {status === "sending" ? "Sending..." : "Book My Free Consultation"}
               </button>
+
+              {status === "success" && (
+                <p className="text-center text-sm text-green-600 font-medium">
+                  Thank you! Your request has been received. We&apos;ll be in touch soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-center text-sm text-red-600 font-medium">
+                  {errorMessage || "Something went wrong. Please try again."}
+                </p>
+              )}
 
               <p className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
-                Your information is safe and secure with us.
+                Your information and secure with us.
               </p>
             </form>
           </div>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CustomSelect from "../../components/CustomSelect";
+import { API_BASE_URL } from "../../../lib/api";
 
 const otherPages = [
   { label: "English (Adults)", href: "/courses/english/adults" },
@@ -133,6 +134,53 @@ function ChevronDown() {
 
 export default function GoethePage() {
   const [category, setCategory] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneCountry, setPhoneCountry] = useState("Turkey-+90");
+  const [phone, setPhone] = useState("");
+
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const categoryLabels = {
+    "one-on-one": "One-on-One Goethe-Zertifikat Preparation",
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    const dialCode = phoneCountry.split("-").pop();
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/inquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          email: email,
+          phone_country_code: dialCode,
+          phone: phone,
+          category: categoryLabels[category] || category,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Something went wrong");
+      }
+
+      setStatus("success");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setCategory("");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err.message);
+    }
+  };
 
   return (
     <main>
@@ -370,14 +418,17 @@ export default function GoethePage() {
             <h2 className="text-xl font-bold text-[#314A8A] mb-1">Information Form</h2>
             <div className="h-[3px] w-10 bg-[#D9A441] rounded-full mb-6" />
 
-            <form className="flex flex-col gap-5">
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   placeholder="Enter your name"
+                  required
                   className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                 />
               </div>
@@ -389,6 +440,8 @@ export default function GoethePage() {
                   </label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Please enter your email"
                     className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
@@ -397,7 +450,11 @@ export default function GoethePage() {
                   <label className="block text-sm font-semibold text-[#314A8A] mb-1.5">Telephone <span className="text-red-500">*</span></label>
                   <div className="flex gap-2">
                     <div className="relative shrink-0 flex items-center">
-                      <select className={`${selectFieldClass} w-24`} defaultValue="Turkey-+90">
+                      <select
+                        className={`${selectFieldClass} w-24`}
+                        value={phoneCountry}
+                        onChange={(e) => setPhoneCountry(e.target.value)}
+                      >
                         {countryCodes.map((c) => (
                           <option key={`${c.name}-${c.code}`} value={`${c.name}-${c.code}`}>
                             {c.code}
@@ -408,7 +465,10 @@ export default function GoethePage() {
                     </div>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       placeholder="501 234 56 78"
+                      required
                       className="w-full border border-gray-200 rounded-md px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                     />
                   </div>
@@ -431,14 +491,27 @@ export default function GoethePage() {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-bold text-sm px-6 py-2.5 rounded-md hover:bg-[#0E4396] transition"
+                  disabled={status === "sending"}
+                  className="inline-flex items-center justify-center gap-2 bg-[#1B5FAE] text-white font-bold text-sm px-6 py-2.5 rounded-md hover:bg-[#0E4396] transition disabled:opacity-60"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                   </svg>
-                  Send Request
+                  {status === "sending" ? "Sending..." : "Send Request"}
                 </button>
               </div>
+
+              {status === "success" && (
+                <p className="text-center text-sm text-green-600 font-medium">
+                  Thank you! Your request has been received. We&apos;ll be in touch soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-center text-sm text-red-600 font-medium">
+                  {errorMessage || "Something went wrong. Please try again."}
+                </p>
+              )}
+
               <p className="text-center text-xs text-gray-400">
                 Your information is safe with us. We will never share your data.
               </p>

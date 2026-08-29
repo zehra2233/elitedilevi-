@@ -20,8 +20,6 @@ const universities = [
   { name: "Uniwersytet Warszawski", country: "Poland", color: "#B22222", logo: "/1.webp" },
   { name: "Eötvös Loránd University", country: "Hungary", color: "#154C8C", logo: "/elte.png", logoScale: true },
   { name: "Beykoz University", country: "Türkiye", color: "#7A1F2B", logo: "/beykoz.png" },
-  { name: "University of Bucharest", country: "Romania", color: "#1B5FAE" },
-  { name: "Vilnius University", country: "Lithuania", color: "#8A1538" },
 ];
 
 const stats = [
@@ -149,6 +147,8 @@ export default function AboutSection() {
   const [statsVisible, setStatsVisible] = useState(false);
   const uniScrollRef = useRef(null);
   const [uniIndex, setUniIndex] = useState(0);
+  const uniDotCount = 3;
+  const uniGroupSize = Math.ceil(universities.length / uniDotCount);
 
   const scrollToUni = (index) => {
     const container = uniScrollRef.current;
@@ -479,13 +479,15 @@ export default function AboutSection() {
         </div>
 
         <div className="flex items-center justify-center gap-2 mt-6 mb-10">
-          {universities.map((u, i) => (
+          {Array.from({ length: uniDotCount }).map((_, i) => (
             <button
-              key={u.name}
-              onClick={() => scrollToUni(i)}
-              aria-label={`Go to ${u.name}`}
+              key={i}
+              onClick={() => scrollToUni(i * uniGroupSize)}
+              aria-label={`Go to university group ${i + 1}`}
               className={`h-2 rounded-full transition-all ${
-                i === uniIndex ? "w-6 bg-[#1B5FAE]" : "w-2 bg-gray-300"
+                i === Math.min(Math.floor(uniIndex / uniGroupSize), uniDotCount - 1)
+                  ? "w-6 bg-[#1B5FAE]"
+                  : "w-2 bg-gray-300"
               }`}
             />
           ))}

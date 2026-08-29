@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Header from "../components/Header";
+import { API_BASE_URL } from "../../lib/api";
 
 const officeAddress =
   "Elite Dil Kursu - Elite Language House, Cumhuriyet, Nazım Hikmet Blv. No:54, 34512 Esenyurt/İstanbul";
@@ -28,6 +32,50 @@ const info = [
 ];
 
 export default function ContactPage() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/contact-messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          email: email,
+          phone: phone,
+          subject: subject,
+          message: message,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Something went wrong");
+      }
+
+      setStatus("success");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setSubject("");
+      setMessage("");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err.message);
+    }
+  };
+
   return (
     <main>
       <Header />
@@ -83,7 +131,7 @@ export default function ContactPage() {
             </h2>
             <div className="h-[3px] w-12 bg-[#D9A441] rounded-full mb-8 mx-auto" />
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="relative">
                   <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -91,7 +139,10 @@ export default function ContactPage() {
                   </svg>
                   <input
                     type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="Full Name"
+                    required
                     className="w-full border border-gray-200 rounded-md pl-11 pr-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
                 </div>
@@ -101,7 +152,10 @@ export default function ContactPage() {
                   </svg>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email Address"
+                    required
                     className="w-full border border-gray-200 rounded-md pl-11 pr-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
                 </div>
@@ -111,6 +165,8 @@ export default function ContactPage() {
                   </svg>
                   <input
                     type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     placeholder="Phone Number"
                     className="w-full border border-gray-200 rounded-md pl-11 pr-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
@@ -121,6 +177,8 @@ export default function ContactPage() {
                   </svg>
                   <input
                     type="text"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
                     placeholder="Subject"
                     className="w-full border border-gray-200 rounded-md pl-11 pr-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition"
                   />
@@ -133,20 +191,35 @@ export default function ContactPage() {
                 </svg>
                 <textarea
                   rows={5}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   placeholder="Your Message"
+                  required
                   className="w-full border border-gray-200 rounded-md pl-11 pr-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#1B5FAE] transition resize-none"
                 />
               </div>
 
+              {status === "success" && (
+                <p className="text-center text-sm text-green-600 font-medium">
+                  Thank you! Your message has been sent. We&apos;ll get back to you soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-center text-sm text-red-600 font-medium">
+                  {errorMessage || "Something went wrong. Please try again."}
+                </p>
+              )}
+
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 bg-[#1B5FAE] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#0E4396] transition"
+                  disabled={status === "sending"}
+                  className="inline-flex items-center gap-2 bg-[#1B5FAE] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#0E4396] transition disabled:opacity-60"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.769 59.769 0 0121.485 12 59.768 59.768 0 013.27 20.876L5.999 12zm0 0h7.5" />
                   </svg>
-                  Send Message
+                  {status === "sending" ? "Sending..." : "Send Message"}
                 </button>
               </div>
             </form>

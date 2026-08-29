@@ -57,47 +57,89 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gray-100 overflow-hidden h-[520px] sm:h-[560px] md:h-[600px]">
-        <Image
-          src="/background.png"
-          alt="Students"
-          fill
-          className="object-cover object-[85%_75%] sm:object-[75%_75%] lg:object-[center_75%]"
-          sizes="100vw"
-          priority
-        />
-
-        <div className="absolute inset-0 bg-[#C6C6C6] opacity-10" />
-
-        <div className="absolute inset-0 flex items-start pt-12 sm:pt-16">
-          <div key={heroReplayKey} className="max-w-2xl px-4 sm:px-6 md:px-10 md:ml-16 lg:ml-32 animate-slide-in-right">
-            <p className="text-base sm:text-lg text-[#1B5FAE] mb-3">
+      <section className="relative bg-gray-100 overflow-hidden sm:h-[560px] md:h-[600px]">
+        {/* Mobile: text stacked above image */}
+        <div className="sm:hidden">
+          <div key={heroReplayKey} className="px-4 pt-10 pb-6 animate-slide-in-right">
+            <p className="text-base text-[#1B5FAE] mb-3">
               Master New Languages, Shape Your Future!
             </p>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-4">
+            <h1 className="text-3xl font-medium text-[#314A8A] leading-tight mb-4">
               Learn Languages,<br />
               Unlock Your Future!
             </h1>
 
-            <p className="text-sm sm:text-base text-[#314A8A] max-w-lg mb-6">
+            <p className="text-sm text-[#314A8A] mb-6">
               At Elite Dil Evi Educational Instituate, we support your language
               learning journey with modern teaching methods and internationally
               standardized programs.
             </p>
 
             <Link
-              href="/placementtest"
-              className="inline-block bg-[#1B5FAE] text-white text-sm sm:text-base font-bold uppercase px-5 sm:px-6 py-2.5 sm:py-3 rounded hover:bg-[#0E4396] transition"
+              href="/contact"
+              className="inline-block bg-[#1B5FAE] text-white text-sm font-bold uppercase px-5 py-2.5 rounded hover:bg-[#0E4396] transition"
             >
               Book Placement Test →
             </Link>
+          </div>
+
+          <div className="relative w-full h-96">
+            <Image
+              src="/background.png"
+              alt="Students"
+              fill
+              className="object-cover object-[85%_25%]"
+              sizes="100vw"
+              priority
+            />
+            <div className="absolute inset-0 bg-[#C6C6C6] opacity-10" />
+          </div>
+        </div>
+
+        {/* sm and up: image with text overlaid */}
+        <div className="hidden sm:block relative sm:h-[560px] md:h-[600px]">
+          <Image
+            src="/background.png"
+            alt="Students"
+            fill
+            className="object-cover object-[75%_75%] lg:object-[center_75%]"
+            sizes="100vw"
+            priority
+          />
+
+          <div className="absolute inset-0 bg-[#C6C6C6] opacity-10" />
+
+          <div className="absolute inset-0 flex items-start pt-16">
+            <div className="max-w-2xl px-6 md:px-10 md:ml-16 lg:ml-32 animate-slide-in-right">
+              <p className="text-lg text-[#1B5FAE] mb-3">
+                Master New Languages, Shape Your Future!
+              </p>
+
+              <h1 className="text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-4">
+                Learn Languages,<br />
+                Unlock Your Future!
+              </h1>
+
+              <p className="text-base text-[#314A8A] max-w-lg mb-6">
+                At Elite Dil Evi Educational Instituate, we support your language
+                learning journey with modern teaching methods and internationally
+                standardized programs.
+              </p>
+
+              <Link
+                href="/contact"
+                className="inline-block bg-[#1B5FAE] text-white text-base font-bold uppercase px-6 py-3 rounded hover:bg-[#0E4396] transition"
+              >
+                Book Placement Test →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Feature Strip */}
-      <div className="relative -mt-20 sm:-mt-24 md:-mt-32 z-20 px-4 sm:px-10">
+      <div className="relative mt-6 sm:-mt-24 md:-mt-32 z-20 px-4 sm:px-10">
         <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl grid grid-cols-1 md:grid-cols-5 gap-6 px-6 sm:px-10 py-8 divide-y md:divide-y-0 md:divide-x divide-gray-200">
 
           <div className="flex items-start gap-3 md:pr-4">
@@ -498,7 +540,7 @@ export default function Home() {
       <AboutSection />
 
       {/* Process Steps Section */}
-      <section className="bg-gray-100 pt-10 pb-12">
+      <section className="bg-gray-100 pt-10 pb-64">
         <div className="max-w-6xl mx-auto px-6 sm:px-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-[#1B5FAE] font-semibold mb-1">Our Process</p>
@@ -580,52 +622,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 py-16">
-        <div className="relative overflow-hidden rounded-md bg-gradient-to-r from-[#0B1B4D] to-[#12296B] px-8 py-8 flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-white font-bold text-lg">Stay updated with our latest news</h3>
-              <p className="text-white/60 text-sm max-w-sm">
-                Subscribe to get updates on new courses, special offers, and language tips.
-              </p>
-            </div>
-          </div>
-
-          <form className="flex w-full lg:w-auto gap-3">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 min-w-0 lg:w-64 bg-white/10 border border-white/20 rounded px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-[#1B5FAE] transition"
-            />
-            <button
-              type="submit"
-              className="shrink-0 bg-[#1B5FAE] text-white font-semibold px-6 py-3 rounded hover:bg-[#0E4396] transition whitespace-nowrap"
-            >
-              Subscribe
-            </button>
-          </form>
-
-          <svg className="hidden lg:block w-20 h-16 text-[#1B5FAE] shrink-0" viewBox="0 0 100 60" fill="none">
-            <path
-              d="M4 50 C 30 50, 45 22, 62 16"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeDasharray="3 5"
-              opacity="0.6"
-            />
-            <path
-              fill="currentColor"
-              d="M58 8l30 12-11 3-4 11-6-11-13-6z"
-            />
-          </svg>
-        </div>
-      </section>
 
       <Footer />
     </main>
