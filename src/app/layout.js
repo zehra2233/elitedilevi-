@@ -16,6 +16,9 @@ export const metadata = {
   title: "Elite Dil Evi",
   description:
     "Elite Dil Evi - Language courses, exam preparation, and university guidance in Istanbul.",
+  verification: {
+    google: "cfXqDafrNjU6iZSyVj5lzDyqRZMAWJdtnUtiOKlYFSw",
+  },
 };
 
 export default function RootLayout({ children }) {
