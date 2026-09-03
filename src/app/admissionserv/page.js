@@ -45,6 +45,12 @@ const steps = [
   { num: "06", title: "Enrollment" },
 ];
 
+export const metadata = {
+  title: "University Admission Services | Elite Dil Evi",
+  description:
+    "Application prep, document support, and admission guidance to help you enroll at top universities abroad.",
+};
+
 export default function AdmissionServicesPage() {
   return (
     <main>

@@ -1,6 +1,12 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+export const metadata = {
+  title: "Blog | Elite Dil Evi",
+  description:
+    "Language learning tips, exam guides, and news from Elite Dil Evi.",
+};
+
 export default function BlogPage() {
   return (
     <main>
