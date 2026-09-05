@@ -69,8 +69,7 @@ export default function Home() {
             </p>
 
             <h1 className="text-3xl font-medium text-[#314A8A] leading-tight mb-4">
-              {t("heroTitleLine1")}<br />
-              {t("heroTitleLine2")}
+              {t("heroTitle")}
             </h1>
 
             <p className="text-sm text-[#314A8A] mb-6">
@@ -118,8 +117,7 @@ export default function Home() {
               </p>
 
               <h1 className="text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-4">
-                {t("heroTitleLine1")}<br />
-                {t("heroTitleLine2")}
+                {t("heroTitle")}
               </h1>
 
               <p className="text-base text-[#314A8A] max-w-lg mb-6">
