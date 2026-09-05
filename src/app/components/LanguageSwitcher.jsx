@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { locales, localeNames } from "../../i18n/config";
@@ -8,15 +9,37 @@ export default function LanguageSwitcher({ variant = "desktop" }) {
   const locale = useLocale();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+  const [coords, setCoords] = useState({ top: 0, right: 0 });
+  const [mounted, setMounted] = useState(false);
+  const buttonRef = useRef(null);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target) &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  function toggleOpen() {
+    if (!open && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setCoords({ top: rect.bottom + 8, right: window.innerWidth - rect.right });
+    }
+    setOpen((v) => !v);
+  }
 
   function selectLocale(newLocale) {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
@@ -45,10 +68,11 @@ export default function LanguageSwitcher({ variant = "desktop" }) {
   }
 
   return (
-    <div className="relative" ref={ref}>
+    <>
       <button
+        ref={buttonRef}
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggleOpen}
         aria-label="Change language"
         className="flex items-center text-white/90 hover:text-white shrink-0"
       >
@@ -57,21 +81,27 @@ export default function LanguageSwitcher({ variant = "desktop" }) {
         </svg>
       </button>
 
-      {open && (
-        <div className="absolute right-0 top-full mt-2 w-32 bg-white rounded-md shadow-lg py-1 z-50 text-left">
-          {locales.map((l) => (
-            <button
-              key={l}
-              onClick={() => selectLocale(l)}
-              className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition ${
-                l === locale ? "text-[#1B5FAE] font-semibold" : "text-gray-700"
-              }`}
-            >
-              {localeNames[l]}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+      {mounted && open &&
+        createPortal(
+          <div
+            ref={menuRef}
+            style={{ position: "fixed", top: coords.top, right: coords.right }}
+            className="w-32 bg-white rounded-md shadow-lg py-1 z-[9999] text-left"
+          >
+            {locales.map((l) => (
+              <button
+                key={l}
+                onClick={() => selectLocale(l)}
+                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition ${
+                  l === locale ? "text-[#1B5FAE] font-semibold" : "text-gray-700"
+                }`}
+              >
+                {localeNames[l]}
+              </button>
+            ))}
+          </div>,
+          document.body
+        )}
+    </>
   );
 }
