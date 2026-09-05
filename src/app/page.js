@@ -144,7 +144,7 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z" />
             </svg>
-            <p className="text-[#314A8A] text-sm min-w-0">
+            <p className="text-[#314A8A] text-sm min-w-0 line-clamp-2">
               {t("feature1")}
             </p>
           </div>
@@ -153,7 +153,7 @@ export default function Home() {
             <svg className="w-7 h-7 shrink-0 text-[#314A8A]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            <p className="text-[#314A8A] text-sm min-w-0">
+            <p className="text-[#314A8A] text-sm min-w-0 line-clamp-2">
               {t("feature2")}
             </p>
           </div>
@@ -162,7 +162,7 @@ export default function Home() {
             <svg className="w-7 h-7 shrink-0 text-[#314A8A]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 017.231-4.41 60.46 60.46 0 00-.491-6.347M4.26 10.147a48.474 48.474 0 017.324-2.815M4.26 10.147a12.087 12.087 0 01-1.395-.914M19.74 10.147a48.474 48.474 0 00-7.324-2.815M19.74 10.147a12.087 12.087 0 001.395-.914M12 12.75c-1.5-1.5-3.5-2-5.5-1.5m5.5 1.5c1.5-1.5 3.5-2 5.5-1.5m-11 0V16m11-4.75V16M12 7.332V3" />
             </svg>
-            <p className="text-[#314A8A] text-sm min-w-0">
+            <p className="text-[#314A8A] text-sm min-w-0 line-clamp-2">
               {t("feature3")}
             </p>
           </div>
@@ -171,7 +171,7 @@ export default function Home() {
             <svg className="w-7 h-7 shrink-0 text-[#314A8A]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 015.814-5.518l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941" />
             </svg>
-            <p className="text-[#314A8A] text-sm min-w-0">
+            <p className="text-[#314A8A] text-sm min-w-0 line-clamp-2">
               {t("feature4")}
             </p>
           </div>
@@ -180,7 +180,7 @@ export default function Home() {
             <svg className="w-7 h-7 shrink-0 text-[#314A8A]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.75h-.152c-3.196 0-6.1-1.248-8.25-3.286z" />
             </svg>
-            <p className="text-[#314A8A] text-sm min-w-0">
+            <p className="text-[#314A8A] text-sm min-w-0 line-clamp-2">
               {t("feature5")}
             </p>
           </div>
