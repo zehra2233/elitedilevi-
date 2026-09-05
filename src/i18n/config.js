@@ -1,5 +1,6 @@
 export const locales = ["en", "tr", "ar", "prs"];
 export const defaultLocale = "en";
+export const rtlLocales = ["ar", "prs"];
 
 export const localeNames = {
   en: "English",
@@ -7,3 +8,7 @@ export const localeNames = {
   ar: "العربية",
   prs: "دری",
 };
+
+export function isRtl(locale) {
+  return rtlLocales.includes(locale);
+}

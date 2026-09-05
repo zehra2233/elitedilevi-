@@ -62,7 +62,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative bg-gray-100 overflow-hidden sm:h-[560px] md:h-[600px]">
         {/* Mobile: text stacked above image */}
-        <div className="sm:hidden">
+        <div className="sm:hidden" dir="ltr">
           <div key={heroReplayKey} className="px-4 pt-10 pb-6 animate-slide-in-right">
             <p className="text-base text-[#1B5FAE] mb-3">
               {t("heroKicker")}
@@ -99,7 +99,7 @@ export default function Home() {
         </div>
 
         {/* sm and up: image with text overlaid */}
-        <div className="hidden sm:block relative sm:h-[560px] md:h-[600px]">
+        <div className="hidden sm:block relative sm:h-[560px] md:h-[600px]" dir="ltr">
           <Image
             src="/background.png"
             alt="Students"
@@ -138,7 +138,7 @@ export default function Home() {
       </section>
 
       {/* Feature Strip */}
-      <div className="relative mt-6 sm:-mt-24 md:-mt-32 z-20 px-4 sm:px-10">
+      <div className="relative mt-6 sm:-mt-24 md:-mt-32 z-20 px-4 sm:px-10" dir="ltr">
         <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl grid grid-cols-1 md:grid-cols-5 gap-6 px-6 sm:px-10 py-8 divide-y md:divide-y-0 md:divide-x divide-gray-200">
 
           <div className="flex items-start gap-3 md:pr-4">
@@ -191,7 +191,7 @@ export default function Home() {
       </div>
 
       {/* Journey / Mission Section */}
-<section className="relative rounded-none w-full mt-24 mb-8 overflow-hidden px-6 sm:px-10 py-16">
+<section className="relative rounded-none w-full mt-24 mb-8 overflow-hidden px-6 sm:px-10 py-16" dir="ltr">
           <Image
           src="/aeroplane.png"
           alt=""
@@ -238,7 +238,7 @@ export default function Home() {
       </section>
 
       {/* Language Cards Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-20 pb-24">
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-20 pb-24" dir="ltr">
         <div className="text-center max-w-2xl mx-auto mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-[#314A8A] leading-tight">
             {t("pickLanguageTitle")} <span className="text-[#1B5FAE] underline decoration-2 underline-offset-4">{t("pickLanguageHighlight")}</span>
@@ -404,7 +404,7 @@ export default function Home() {
       </section>
 
       {/* Programs Grid Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-8 pb-24">
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-8 pb-24" dir="ltr">
         <div className="text-center max-w-2xl mx-auto mb-8">
           <h2 className="text-4xl font-bold text-[#314A8A]">
             {t("programsTitle")}
@@ -545,7 +545,7 @@ export default function Home() {
       <AboutSection />
 
       {/* Process Steps Section */}
-      <section className="bg-gray-100 pt-10 pb-64">
+      <section className="bg-gray-100 pt-10 pb-64" dir="ltr">
         <div className="max-w-6xl mx-auto px-6 sm:px-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-[#1B5FAE] font-semibold mb-1">{t("processLabel")}</p>

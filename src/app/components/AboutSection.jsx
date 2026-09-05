@@ -195,7 +195,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section className="bg-white">
+    <section className="bg-white" dir="ltr">
       {/* Full-width stats bar */}
       <div ref={statsRef} className="w-full bg-[#154C8C] py-14">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x md:divide-white/15">

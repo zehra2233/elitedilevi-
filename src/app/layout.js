@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 import FloatingSideTabs from "./components/FloatingSideTabs";
+import { isRtl } from "../i18n/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,11 +64,12 @@ const jsonLd = {
 export default async function RootLayout({ children }) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const dir = isRtl(locale) ? "rtl" : "ltr";
 
   return (
     <html
       lang={locale}
-      dir="ltr"
+      dir={dir}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
