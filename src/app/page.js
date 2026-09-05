@@ -3,12 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import Header from "./components/Header";
 import AboutSection from "./components/AboutSection";
 import WelcomePopup from "./components/WelcomePopup";
 import Footer from "./components/Footer";
 
 export default function Home() {
+  const t = useTranslations("home");
+  const tHeader = useTranslations("header");
   const [heroReplayKey, setHeroReplayKey] = useState(0);
   const missionRef = useRef(null);
   const [missionVisible, setMissionVisible] = useState(false);
@@ -62,25 +65,23 @@ export default function Home() {
         <div className="sm:hidden">
           <div key={heroReplayKey} className="px-4 pt-10 pb-6 animate-slide-in-right">
             <p className="text-base text-[#1B5FAE] mb-3">
-              Master New Languages, Shape Your Future!
+              {t("heroKicker")}
             </p>
 
             <h1 className="text-3xl font-medium text-[#314A8A] leading-tight mb-4">
-              Learn Languages,<br />
-              Unlock Your Future!
+              {t("heroTitleLine1")}<br />
+              {t("heroTitleLine2")}
             </h1>
 
             <p className="text-sm text-[#314A8A] mb-6">
-              At Elite Dil Evi Educational Instituate, we support your language
-              learning journey with modern teaching methods and internationally
-              standardized programs.
+              {t("heroDesc")}
             </p>
 
             <Link
               href="/contact"
               className="inline-block bg-[#1B5FAE] text-white text-sm font-bold uppercase px-5 py-2.5 rounded hover:bg-[#0E4396] transition"
             >
-              Book Placement Test →
+              {t("bookPlacementTest")}
             </Link>
           </div>
 
@@ -113,25 +114,23 @@ export default function Home() {
           <div className="absolute inset-0 flex items-start pt-16">
             <div className="max-w-2xl px-6 md:px-10 md:ml-16 lg:ml-32 animate-slide-in-right">
               <p className="text-lg text-[#1B5FAE] mb-3">
-                Master New Languages, Shape Your Future!
+                {t("heroKicker")}
               </p>
 
               <h1 className="text-4xl md:text-5xl font-medium text-[#314A8A] leading-tight mb-4">
-                Learn Languages,<br />
-                Unlock Your Future!
+                {t("heroTitleLine1")}<br />
+                {t("heroTitleLine2")}
               </h1>
 
               <p className="text-base text-[#314A8A] max-w-lg mb-6">
-                At Elite Dil Evi Educational Instituate, we support your language
-                learning journey with modern teaching methods and internationally
-                standardized programs.
+                {t("heroDesc")}
               </p>
 
               <Link
                 href="/contact"
                 className="inline-block bg-[#1B5FAE] text-white text-base font-bold uppercase px-6 py-3 rounded hover:bg-[#0E4396] transition"
               >
-                Book Placement Test →
+                {t("bookPlacementTest")}
               </Link>
             </div>
           </div>
@@ -148,7 +147,7 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z" />
             </svg>
             <p className="text-[#314A8A] text-sm min-w-0">
-              German, English & Turkish — Courses for All Levels
+              {t("feature1")}
             </p>
           </div>
 
@@ -157,7 +156,7 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             <p className="text-[#314A8A] text-sm min-w-0">
-              Reading, Writing & Speaking-Focused Communication Methods
+              {t("feature2")}
             </p>
           </div>
 
@@ -166,7 +165,7 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 017.231-4.41 60.46 60.46 0 00-.491-6.347M4.26 10.147a48.474 48.474 0 017.324-2.815M4.26 10.147a12.087 12.087 0 01-1.395-.914M19.74 10.147a48.474 48.474 0 00-7.324-2.815M19.74 10.147a12.087 12.087 0 001.395-.914M12 12.75c-1.5-1.5-3.5-2-5.5-1.5m5.5 1.5c1.5-1.5 3.5-2 5.5-1.5m-11 0V16m11-4.75V16M12 7.332V3" />
             </svg>
             <p className="text-[#314A8A] text-sm min-w-0">
-              Experienced & Expert Instructor Team
+              {t("feature3")}
             </p>
           </div>
 
@@ -175,7 +174,7 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 015.814-5.518l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941" />
             </svg>
             <p className="text-[#314A8A] text-sm min-w-0">
-              Exam Prep — TOEFL, IELTS & Pearson ÖSD Goethe
+              {t("feature4")}
             </p>
           </div>
 
@@ -184,7 +183,7 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.75h-.152c-3.196 0-6.1-1.248-8.25-3.286z" />
             </svg>
             <p className="text-[#314A8A] text-sm min-w-0">
-              Certified Completion — Internationally Recognized Certificates
+              {t("feature5")}
             </p>
           </div>
 
@@ -203,22 +202,22 @@ export default function Home() {
 
         <div className="relative max-w-5xl mx-auto text-center mb-16">
           <span className="inline-block bg-white/10 text-white text-xs font-bold tracking-wider px-4 py-2 rounded-full mb-6">
-            YOUR JOURNEY, OUR MISSION
+            {t("missionBadge")}
           </span>
 
           <h2 className="text-3xl md:text-4xl font-normal text-white mb-4 leading-tight">
-            Get the <span className="text-[#6FA8FF]">Score</span>. Get the{" "}
-            <span className="text-[#4ADE80]">Letter</span>. Get on the{" "}
-            <span className="text-[#F5B942]">Plane</span>.
+            {t("missionTitlePart1")} <span className="text-[#6FA8FF]">{t("missionTitleScore")}</span>{t("missionTitlePart2")}{" "}
+            <span className="text-[#4ADE80]">{t("missionTitleLetter")}</span>{t("missionTitlePart3")}{" "}
+            <span className="text-[#F5B942]">{t("missionTitlePlane")}</span>{t("missionTitlePart4")}
           </h2>
         </div>
 
         <div ref={missionRef} className="relative max-w-7xl mx-auto flex flex-wrap gap-x-6 gap-y-8 lg:justify-between">
           {[
-            { icon: "🎓", title: "Expert Instructors", text: "Learn from experienced, certified teachers." },
-            { icon: "📈", title: "Proven Results", text: "High success rate in international exams." },
-            { icon: "🤝", title: "Personalized Support", text: "Individual guidance for your unique goals." },
-            { icon: "📋", title: "Complete Preparation", text: "From exam prep to admission and beyond." },
+            { icon: "🎓", title: t("mission1Title"), text: t("mission1Text") },
+            { icon: "📈", title: t("mission2Title"), text: t("mission2Text") },
+            { icon: "🤝", title: t("mission3Title"), text: t("mission3Text") },
+            { icon: "📋", title: t("mission4Title"), text: t("mission4Text") },
           ].map((item, i) => (
             <div
               key={i}
@@ -242,19 +241,19 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-20 pb-24">
         <div className="text-center max-w-2xl mx-auto mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-[#314A8A] leading-tight">
-            Pick Your Language, <span className="text-[#1B5FAE] underline decoration-2 underline-offset-4">Start Today</span>
+            {t("pickLanguageTitle")} <span className="text-[#1B5FAE] underline decoration-2 underline-offset-4">{t("pickLanguageHighlight")}</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
           {[
             {
-              name: "English",
+              name: tHeader("english"),
               href: "/courses/english/adults",
               image: "/english.png",
               color: "#1B5FAE",
               popular: true,
-              desc: "General & academic English, built to feed straight into TOEFL, IELTS or Pearson prep.",
+              desc: t("englishDesc"),
               flag: (
                 <>
                   <rect width="60" height="40" fill="#B22234" />
@@ -269,26 +268,26 @@ export default function Home() {
               ),
               features: [
                 {
-                  label: "All Levels A1 – C1",
+                  label: t("featAllLevels"),
                   icon: "M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25",
                 },
                 {
-                  label: "Exam Preparation",
+                  label: t("featExamPrep"),
                   icon: "M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z M3 9v6",
                 },
                 {
-                  label: "Speaking Focus",
+                  label: t("featSpeakingFocus"),
                   icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
                 },
               ],
             },
             {
-              name: "Turkish",
+              name: tHeader("turkish"),
               href: "/courses/turkish",
               image: "/turkish.png",
               color: "#D63636",
               popular: false,
-              desc: "Turkish for living, working and studying in Turkey. Everyday fluency, not just textbook grammar.",
+              desc: t("turkishDesc"),
               flag: (
                 <>
                   <rect width="60" height="40" fill="#E30A17" />
@@ -302,26 +301,26 @@ export default function Home() {
               ),
               features: [
                 {
-                  label: "Everyday Conversations",
+                  label: t("featEverydayConv"),
                   icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
                 },
                 {
-                  label: "Work & Study in Turkey",
+                  label: t("featWorkStudyTurkey"),
                   icon: "M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.653v-6.5A2.25 2.25 0 0018 3.75h-1.5a2.25 2.25 0 00-2.25 2.25v.75m6 6a48.667 48.667 0 00-7.5-.383m-7.5.383a2.18 2.18 0 01-.75-1.653v-6.5A2.25 2.25 0 016 3.75h1.5a2.25 2.25 0 012.25 2.25v.75m6 6a48.667 48.667 0 00-7.5 0",
                 },
                 {
-                  label: "Listening Practice",
+                  label: t("featListening"),
                   icon: "M3 18v-6a9 9 0 0118 0v6M3 18a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3v5zm18 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3v5z",
                 },
               ],
             },
             {
-              name: "German",
+              name: tHeader("german"),
               href: "/courses/german",
               image: "/germany.png",
               color: "#1B4332",
               popular: false,
-              desc: "German for admission, work visas, and daily life. With exam-track options for certification.",
+              desc: t("germanDesc"),
               flag: (
                 <>
                   <rect width="60" height="13.3" fill="#000" />
@@ -331,15 +330,15 @@ export default function Home() {
               ),
               features: [
                 {
-                  label: "Exam Preparation",
+                  label: t("featExamPrep"),
                   icon: "M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z M3 9v6",
                 },
                 {
-                  label: "Study & Abroad",
+                  label: t("featStudyAbroad"),
                   icon: "M3.75 21h16.5M4.5 3h15M5.25 3v18M18.75 3v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21",
                 },
                 {
-                  label: "Practical German",
+                  label: t("featPracticalGerman"),
                   icon: "M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z",
                 },
               ],
@@ -396,7 +395,7 @@ export default function Home() {
                   href={lang.href}
                   className="block w-full text-center text-sm font-bold py-3 rounded border border-[#1B5FAE] text-[#1B5FAE] hover:bg-gray-50 transition"
                 >
-                  See Details →
+                  {t("seeDetails")}
                 </Link>
               </div>
             </div>
@@ -408,15 +407,16 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 sm:px-10 pt-8 pb-24">
         <div className="text-center max-w-2xl mx-auto mb-8">
           <h2 className="text-4xl font-bold text-[#314A8A]">
-            Elite Dil Evi Education Programs
+            {t("programsTitle")}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-1 gap-y-10 mt-12">
           {[
             {
-              title: "General Courses",
-              subtitle: "Courses for Every Level",
+              key: "general",
+              title: t("generalCoursesTitle"),
+              subtitle: t("generalCoursesSubtitle"),
               color: "#1B5FAE",
               href: "/general",
               icon: (
@@ -424,8 +424,9 @@ export default function Home() {
               ),
             },
             {
-              title: "Exam Preparation",
-              subtitle: "TOEFL, IELTS & Goethe",
+              key: "exam",
+              title: t("examPrepTitle"),
+              subtitle: t("examPrepSubtitle"),
               color: "#1B5FAE",
               href: "/exams",
               icon: (
@@ -433,8 +434,9 @@ export default function Home() {
               ),
             },
             {
-              title: "Junior Programs",
-              subtitle: "Fun & Effective Kids Courses",
+              key: "junior",
+              title: t("juniorTitle"),
+              subtitle: t("juniorSubtitle"),
               color: "#1B5FAE",
               href: "/courses/english/junior",
               icon: (
@@ -442,8 +444,9 @@ export default function Home() {
               ),
             },
             {
-              title: "Private Lessons",
-              subtitle: "One-on-One Personalized Classes",
+              key: "private",
+              title: t("privateTitle"),
+              subtitle: t("privateSubtitle"),
               color: "#1B5FAE",
               href: "/private",
               icon: (
@@ -455,8 +458,9 @@ export default function Home() {
               ),
             },
             {
-              title: "Online Courses",
-              subtitle: "Courses for Every Level",
+              key: "online",
+              title: t("onlineTitle"),
+              subtitle: t("onlineSubtitle"),
               color: "#1B5FAE",
               href: "/onlineclass",
               icon: (
@@ -467,8 +471,9 @@ export default function Home() {
               ),
             },
             {
-              title: "Admission Services",
-              subtitle: "University Applications",
+              key: "admission",
+              title: t("admissionTitle"),
+              subtitle: t("admissionSubtitle"),
               color: "#1B5FAE",
               href: "/uniguide",
               icon: (
@@ -481,17 +486,17 @@ export default function Home() {
               <div className="relative h-32">
                 <div className="absolute inset-0 overflow-hidden">
                   <Image   src={
-    prog.title === "General Courses"
+    prog.key === "general"
       ? "/generall.jpg"
-      : prog.title === "Online Courses"
+      : prog.key === "online"
       ? "/online.jpg"
-       : prog.title === "Exam Preparation"
+       : prog.key === "exam"
       ? "/exam.jpg"
-      : prog.title === "Junior Programs"
+      : prog.key === "junior"
       ? "/junior.jpg"
-       : prog.title === "Private Lessons"
+       : prog.key === "private"
       ? "/private.jpg"
-         : prog.title === "Admission Services"
+         : prog.key === "admission"
       ? "/unii.jpg"
       : "/background.png"}
     alt={prog.title}
@@ -520,14 +525,14 @@ export default function Home() {
                     className="inline-block text-xs font-semibold px-4 py-1.5 rounded border hover:bg-gray-50 transition"
                     style={{ borderColor: prog.color, color: prog.color }}
                   >
-                    See Details →
+                    {t("seeDetails")}
                   </Link>
                 ) : (
                   <button
                     className="text-xs font-semibold px-4 py-1.5 rounded border hover:bg-gray-50 transition"
                     style={{ borderColor: prog.color, color: prog.color }}
                   >
-                    See Details →
+                    {t("seeDetails")}
                   </button>
                 )}
               </div>
@@ -543,44 +548,44 @@ export default function Home() {
       <section className="bg-gray-100 pt-10 pb-64">
         <div className="max-w-6xl mx-auto px-6 sm:px-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-[#1B5FAE] font-semibold mb-1">Our Process</p>
+            <p className="text-[#1B5FAE] font-semibold mb-1">{t("processLabel")}</p>
             <h2 className="text-4xl font-bold text-[#314A8A]">
-              From Language Level to Acceptance Letter
+              {t("processTitle")}
             </h2>
           </div>
 
           <div ref={processRef} className="flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-0">
             {[
               {
-                title: "Assessment",
+                title: t("step1"),
                 color: "#1B5FAE",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75l2 2 4-4M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 ),
               },
               {
-                title: "Language & Exam Prep",
+                title: t("step2"),
                 color: "#1B5FAE",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                 ),
               },
               {
-                title: "Application Documents",
+                title: t("step3"),
                 color: "#1B5FAE",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-19.5 0v6a2.25 2.25 0 002.25 2.25h15a2.25 2.25 0 002.25-2.25v-6m-19.5 0h19.5M4.5 9.75V6a2.25 2.25 0 012.25-2.25h4.5l2.25 2.25h5.25A2.25 2.25 0 0121.75 8.25v1.5" />
                 ),
               },
               {
-                title: "Interview Preparation",
+                title: t("step4"),
                 color: "#1B5FAE",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                 ),
               },
               {
-                title: "Visa And Acceptance",
+                title: t("step5"),
                 color: "#1B5FAE",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />

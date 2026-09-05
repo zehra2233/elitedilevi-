@@ -1,6 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 import FloatingSideTabs from "./components/FloatingSideTabs";
+import { isRtl } from "../i18n/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,10 +61,15 @@ const jsonLd = {
   sameAs: ["https://www.instagram.com/elitedil_evi"],
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const dir = isRtl(locale) ? "rtl" : "ltr";
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={dir}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
@@ -69,7 +77,9 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
         <FloatingSideTabs />
       </body>
     </html>

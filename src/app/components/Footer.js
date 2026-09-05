@@ -1,7 +1,11 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
+  const t = useTranslations("footer");
+
   return (
     <footer className="bg-[#154C8C] text-white pt-10 pb-6">
       <div className="px-8 sm:px-12 xl:px-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[220px_1fr_1fr_1fr] gap-8 lg:gap-x-40">
@@ -13,10 +17,7 @@ export default function Footer() {
             height={1122}
             className="h-28 w-auto mb-3"
           />
-          <p className="text-sm text-white/50 max-w-xs">
-            Shaping futures through languages and helping students reach the
-            world&apos;s finest universities.
-          </p>
+          <p className="text-sm text-white/50 max-w-xs">{t("tagline")}</p>
           <div className="flex items-center gap-3 mt-4">
             <a href="#" aria-label="Facebook" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
               <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -37,17 +38,17 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-3">Services</h4>
+          <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-3">{t("services")}</h4>
           <ul className="space-y-2 text-sm text-white/50">
             {[
-              { label: "Languages", href: "/general" },
-              { label: "University Selection", href: "/uniguide" },
-              { label: "Application & Admission", href: "/admissionserv" },
-              { label: "Exam Preparation", href: "/exams" },
-              { label: "Visa & Accommodation", href: "/contact" },
-              { label: "Scholarship Guidance", href: "/uniguide" },
-            ].map((c) => (
-              <li key={c.label}>
+              { label: t("languages"), href: "/general" },
+              { label: t("universitySelection"), href: "/uniguide" },
+              { label: t("applicationAdmission"), href: "/admissionserv" },
+              { label: t("examPreparation"), href: "/exams" },
+              { label: t("visaAccommodation"), href: "/contact" },
+              { label: t("scholarshipGuidance"), href: "/uniguide" },
+            ].map((c, i) => (
+              <li key={i}>
                 <Link href={c.href} className="hover:text-white transition">
                   {c.label}
                 </Link>
@@ -57,7 +58,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-3">Exam Preparation</h4>
+          <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-3">{t("examPreparation")}</h4>
           <ul className="space-y-2 text-sm text-white/50">
             {[
               { label: "IELTS", href: "/exams/ielts" },
@@ -77,32 +78,32 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-3">Contact</h4>
+          <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-3">{t("contact")}</h4>
           <ul className="space-y-2 text-sm text-white/50">
             <li className="flex items-center gap-3">
               <svg className="w-5 h-5 text-white/50 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
               </svg>
-              +90 544 406 72 22
+              {t("phone")}
             </li>
             <li className="flex items-center gap-3">
               <svg className="w-5 h-5 text-white/50 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
               </svg>
-              +90 537 249 18 54
+              {t("phone2")}
             </li>
             <li className="flex items-start gap-3">
               <svg className="w-5 h-5 text-white/50 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
               </svg>
-              Cumhuriyet, Nazım Hikmet Blv. No:54, 34512 Esenyurt/İstanbul
+              {t("address")}
             </li>
             <li className="flex items-center gap-3">
               <svg className="w-5 h-5 text-white/50 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
               </svg>
-              info@elitedil.com
+              {t("email")}
             </li>
           </ul>
         </div>

@@ -3,8 +3,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
+  const t = useTranslations("header");
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [englishOpen, setEnglishOpen] = useState(false);
   const [examsOpen, setExamsOpen] = useState(false);
@@ -35,18 +38,19 @@ export default function Header() {
               <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
               </svg>
-              <span className="whitespace-nowrap">Head Office: +90 544 406 72 22</span>
+              <span className="whitespace-nowrap">{t("phone")}</span>
             </div>
             <div className="hidden xl:flex items-center gap-2">
               <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
               </svg>
-              <span className="whitespace-nowrap">Address: Yeşilkent, Nazım Hikmet Blv. No:50, İstanbul</span>
+              <span className="whitespace-nowrap">{t("address")}</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+            <LanguageSwitcher variant="desktop" />
             <a href="https://www.instagram.com/elitedil_evi" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
@@ -80,8 +84,8 @@ export default function Header() {
         </Link>
 
         <nav className="hidden lg:flex gap-6 text-base text-gray-700 items-center">
-          <Link href="/" className={navLinkClass("/")}>Home</Link>
-          <Link href="/about-us" className={navLinkClass("/about-us")}>About Us</Link>
+          <Link href="/" className={navLinkClass("/")}>{t("home")}</Link>
+          <Link href="/about-us" className={navLinkClass("/about-us")}>{t("aboutUs")}</Link>
 
           {/* Courses Dropdown */}
           <div
@@ -97,14 +101,14 @@ export default function Header() {
                 coursesActive ? "text-[#1B5FAE] font-semibold" : ""
               }`}
             >
-              Courses
+              {t("courses")}
               <span className="text-xs font-light text-gray-400">▼</span>
             </button>
 
             {coursesOpen && (
               <div className="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 w-48 z-50">
                 <Link href="/courses/german" className={dropdownLinkClass("/courses/german")}>
-                  German
+                  {t("german")}
                 </Link>
 
                 {/* English with nested submenu */}
@@ -118,24 +122,24 @@ export default function Header() {
                       englishActive ? "text-[#1B5FAE] font-semibold bg-gray-100" : ""
                     }`}
                   >
-                    English
+                    {t("english")}
                     <span className="text-xs font-light text-gray-400">▶</span>
                   </button>
 
                   {englishOpen && (
                     <div className="absolute top-0 left-full bg-white shadow-lg rounded-md py-2 w-40 z-50">
                       <Link href="/courses/english/junior" className={dropdownLinkClass("/courses/english/junior")}>
-                        Junior
+                        {t("junior")}
                       </Link>
                       <Link href="/courses/english/adults" className={dropdownLinkClass("/courses/english/adults")}>
-                        Adults
+                        {t("adults")}
                       </Link>
                     </div>
                   )}
                 </div>
 
                 <Link href="/courses/turkish" className={dropdownLinkClass("/courses/turkish")}>
-                  Turkish
+                  {t("turkish")}
                 </Link>
               </div>
             )}
@@ -152,7 +156,7 @@ export default function Header() {
                 examsActive ? "text-[#1B5FAE] font-semibold" : ""
               }`}
             >
-              Exam Preparation
+              {t("examPreparation")}
               <span className="text-xs font-light text-gray-400">▼</span>
             </button>
 
@@ -181,11 +185,11 @@ export default function Header() {
           </div>
 
           {/* University Guidance - standalone */}
-          <Link href="/uniguide" className={navLinkClass("/uniguide")}>University Guidance</Link>
+          <Link href="/uniguide" className={navLinkClass("/uniguide")}>{t("universityGuidance")}</Link>
 
-          <Link href="/blog" className={navLinkClass("/blog")}>Blog</Link>
+          <Link href="/blog" className={navLinkClass("/blog")}>{t("blog")}</Link>
 
-          <Link href="/contact" className={navLinkClass("/contact")}>Contact</Link>
+          <Link href="/contact" className={navLinkClass("/contact")}>{t("contact")}</Link>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -193,13 +197,13 @@ export default function Header() {
             href="/contact"
             className="inline-block bg-red-600 text-white font-bold px-3 sm:px-6 py-2 sm:py-3 rounded hover:bg-red-700 transition animate-pulse-scale text-xs sm:text-base"
           >
-            CONTACT US
+            {t("contactUs")}
           </Link>
 
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label={t("toggleMenu")}
             className="lg:hidden w-10 h-10 flex items-center justify-center text-[#0E1E4A]"
           >
             <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -216,24 +220,25 @@ export default function Header() {
       {/* Mobile nav panel */}
       {mobileOpen && (
         <nav className="lg:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-1 text-gray-700 max-h-[80vh] overflow-y-auto">
-          <Link href="/" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/")}`}>Home</Link>
-          <Link href="/about-us" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/about-us")}`}>About Us</Link>
+          <LanguageSwitcher variant="mobile" />
+          <Link href="/" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/")}`}>{t("home")}</Link>
+          <Link href="/about-us" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/about-us")}`}>{t("aboutUs")}</Link>
 
           <details className="py-2" open={coursesActive}>
             <summary className={`cursor-pointer list-none flex items-center justify-between ${coursesActive ? "text-[#1B5FAE] font-semibold" : ""}`}>
-              Courses <span className="text-xs text-gray-400">▼</span>
+              {t("courses")} <span className="text-xs text-gray-400">▼</span>
             </summary>
             <div className="pl-4 mt-2 flex flex-col gap-2">
-              <Link href="/courses/german" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/german" ? "text-[#1B5FAE] font-semibold" : ""}`}>German</Link>
-              <Link href="/courses/english/junior" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/english/junior" ? "text-[#1B5FAE] font-semibold" : ""}`}>English (Junior)</Link>
-              <Link href="/courses/english/adults" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/english/adults" ? "text-[#1B5FAE] font-semibold" : ""}`}>English (Adults)</Link>
-              <Link href="/courses/turkish" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/turkish" ? "text-[#1B5FAE] font-semibold" : ""}`}>Turkish</Link>
+              <Link href="/courses/german" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/german" ? "text-[#1B5FAE] font-semibold" : ""}`}>{t("german")}</Link>
+              <Link href="/courses/english/junior" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/english/junior" ? "text-[#1B5FAE] font-semibold" : ""}`}>{t("english")} ({t("junior")})</Link>
+              <Link href="/courses/english/adults" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/english/adults" ? "text-[#1B5FAE] font-semibold" : ""}`}>{t("english")} ({t("adults")})</Link>
+              <Link href="/courses/turkish" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/courses/turkish" ? "text-[#1B5FAE] font-semibold" : ""}`}>{t("turkish")}</Link>
             </div>
           </details>
 
           <details className="py-2" open={examsActive}>
             <summary className={`cursor-pointer list-none flex items-center justify-between ${examsActive ? "text-[#1B5FAE] font-semibold" : ""}`}>
-              Exam Preparation <span className="text-xs text-gray-400">▼</span>
+              {t("examPreparation")} <span className="text-xs text-gray-400">▼</span>
             </summary>
             <div className="pl-4 mt-2 flex flex-col gap-2">
               <Link href="/exams/toefl" onClick={() => setMobileOpen(false)} className={`py-1 ${pathname === "/exams/toefl" ? "text-[#1B5FAE] font-semibold" : ""}`}>TOEFL</Link>
@@ -245,16 +250,16 @@ export default function Header() {
             </div>
           </details>
 
-          <Link href="/uniguide" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/uniguide")}`}>University Guidance</Link>
-          <Link href="/blog" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/blog")}`}>Blog</Link>
-          <Link href="/contact" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/contact")}`}>Contact</Link>
+          <Link href="/uniguide" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/uniguide")}`}>{t("universityGuidance")}</Link>
+          <Link href="/blog" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/blog")}`}>{t("blog")}</Link>
+          <Link href="/contact" onClick={() => setMobileOpen(false)} className={`py-2 ${navLinkClass("/contact")}`}>{t("contact")}</Link>
 
           <Link
             href="/contact"
             onClick={() => setMobileOpen(false)}
             className="mt-2 text-center bg-red-600 text-white font-bold px-6 py-3 rounded hover:bg-red-700 transition"
           >
-            CONTACT US
+            {t("contactUs")}
           </Link>
         </nav>
       )}
