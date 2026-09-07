@@ -32,6 +32,16 @@
     "address": "جمهورييت، نظيم حكمت بلفار رقم 54، 34512 إسنيورت/إسطنبول",
     "email": "info@elitedil.com"
   },
+  "about": {
+    "statsStudentsLabel": "طالب",
+    "statsStudentsSub": "تم تدريبهم بنجاح",
+    "statsSuccessLabel": "نسبة النجاح",
+    "statsSuccessSub": "في الامتحانات والأهداف",
+    "statsYearsLabel": "سنوات خبرة",
+    "statsYearsSub": "موثوق به من قبل الآلاف",
+    "statsLanguagesLabel": "لغات",
+    "statsLanguagesSub": "DE · EN · TR"
+  },
   "home": {
     "heroKicker": "أتقن لغات جديدة، وشكّل مستقبلك!",
     "heroTitleLine1": "تعلّم اللغات،",
