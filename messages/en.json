@@ -32,6 +32,16 @@
     "address": "Cumhuriyet, Nazım Hikmet Blv. No:54, 34512 Esenyurt/İstanbul",
     "email": "info@elitedil.com"
   },
+  "about": {
+    "statsStudentsLabel": "Students",
+    "statsStudentsSub": "Trained successfully",
+    "statsSuccessLabel": "Success Rate",
+    "statsSuccessSub": "In exams and goals",
+    "statsYearsLabel": "Years Experience",
+    "statsYearsSub": "Trusted by thousands",
+    "statsLanguagesLabel": "Languages",
+    "statsLanguagesSub": "DE · EN · TR"
+  },
   "home": {
     "heroKicker": "Master New Languages, Shape Your Future!",
     "heroTitleLine1": "Learn Languages,",

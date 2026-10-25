@@ -375,7 +375,7 @@ export default function Home() {
                   className="block mx-auto mt-2 mb-4 h-[3px] w-10 rounded-full"
                   style={{ backgroundColor: lang.color }}
                 />
-                <p className="text-gray-600 text-sm">{lang.desc}</p>
+                <p className="text-gray-600 text-sm line-clamp-3 min-h-[60px]">{lang.desc}</p>
 
                 <div className="grid grid-cols-3 gap-3 my-6">
                   {lang.features.map((f) => (
@@ -386,7 +386,7 @@ export default function Home() {
                       <svg className="w-5 h-5" fill="none" stroke="#1B5FAE" strokeWidth={1.5} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
                       </svg>
-                      <p className="text-[11px] font-semibold text-[#314A8A] leading-tight">{f.label}</p>
+                      <p className="text-[11px] font-semibold text-[#314A8A] leading-tight line-clamp-2 min-h-[28px] flex items-center">{f.label}</p>
                     </div>
                   ))}
                 </div>

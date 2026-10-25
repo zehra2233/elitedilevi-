@@ -32,6 +32,16 @@
     "address": "جمهوریت، بلوار نظیم حکمت شماره 54، 34512 اسنیورت/استانبول",
     "email": "info@elitedil.com"
   },
+  "about": {
+    "statsStudentsLabel": "دانشجو",
+    "statsStudentsSub": "با موفقیت آموزش دیده",
+    "statsSuccessLabel": "نرخ موفقیت",
+    "statsSuccessSub": "در امتحانات و اهداف",
+    "statsYearsLabel": "سال تجربه",
+    "statsYearsSub": "مورد اعتماد هزاران نفر",
+    "statsLanguagesLabel": "زبان",
+    "statsLanguagesSub": "DE · EN · TR"
+  },
   "home": {
     "heroKicker": "زبان‌های جدید یاد بگیرید، آینده خود را بسازید!",
     "heroTitleLine1": "زبان یاد بگیرید،",
